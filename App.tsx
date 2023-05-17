@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import UnAuthenticatedNavigator from './navigation/UnAuthenticatedNavigator';
 
 const App = () => {
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>This is the root</Text>
-    </View>
+    <NavigationContainer>
+      <UnAuthenticatedNavigator />
+    </NavigationContainer>
   );
 };
 
