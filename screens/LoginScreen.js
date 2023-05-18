@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
   SafeAreaView,
-  TextInput,
   TouchableWithoutFeedback,
   Keyboard,
   Image,
@@ -13,6 +12,7 @@ import GithubLogo from '../assets/images/Github-logo.png';
 import AppTextInput from '../components/AppTextInput';
 
 const LoginScreen = () => {
+  const [active, setActive] = useState(false);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView>
