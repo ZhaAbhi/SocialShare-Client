@@ -10,6 +10,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import GithubLogo from '../assets/images/Github-logo.png';
+import AppTextInput from '../components/AppTextInput';
 
 const LoginScreen = () => {
   return (
@@ -25,11 +26,8 @@ const LoginScreen = () => {
           </View>
         </View>
         <View style={{padding: 20, marginTop: 30}}>
-          <TextInput
-            placeholder="Email"
-            style={[styles.textInput, {marginBottom: 28}]}
-          />
-          <TextInput placeholder="Password" style={styles.textInput} />
+          <AppTextInput placeholder="Email" style={{marginBottom: 26}} />
+          <AppTextInput placeholder="Password" />
           <Text style={styles.forgotPasswordText}>Forget your password?</Text>
           <View style={styles.signInButtonContainer}>
             <Text style={styles.signinText}>Sign in</Text>
