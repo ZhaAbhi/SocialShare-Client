@@ -7,6 +7,7 @@ const Stack = createNativeStackNavigator();
 const UnAuthenticatedNavigator = () => (
   <Stack.Navigator
     screenOptions={{
+      animation: 'slide_from_right',
       headerShown: false,
       contentStyle: {backgroundColor: '#fff'},
     }}>

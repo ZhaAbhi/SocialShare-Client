@@ -6,14 +6,9 @@ import {
   SafeAreaView,
   StyleSheet,
   Keyboard,
-  Image,
-  ScrollView,
-  KeyboardAvoidingView,
-  TouchableOpacity,
 } from 'react-native';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
-import GithubLogo from '../assets/images/Github-logo.png';
 
 const RegisterScreen = ({navigation}) => {
   return (
