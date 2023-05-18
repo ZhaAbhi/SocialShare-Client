@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import GithubLogo from '../assets/images/Github-logo.png';
 import AppTextInput from '../components/AppTextInput';
+import AppButton from '../components/AppButton';
 
 const LoginScreen = () => {
   const [active, setActive] = useState(false);
@@ -29,9 +30,7 @@ const LoginScreen = () => {
           <AppTextInput placeholder="Email" style={{marginBottom: 26}} />
           <AppTextInput placeholder="Password" />
           <Text style={styles.forgotPasswordText}>Forget your password?</Text>
-          <View style={styles.signInButtonContainer}>
-            <Text style={styles.signinText}>Sign in</Text>
-          </View>
+          <AppButton title="Sign in" containerStyle={{marginTop: 28}} />
           <View style={styles.createAccount}>
             <Text style={styles.createAccountText}>Create a new account</Text>
             <View style={styles.createAccountContainer}>
@@ -76,27 +75,6 @@ const styles = StyleSheet.create({
     marginTop: 35,
     fontFamily: 'Poppins-SemiBold',
     color: 'darkblue',
-  },
-  signInButtonContainer: {
-    shadowColor: 'darkblue',
-    shadowOffset: {
-      width: 0,
-      height: 9,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 12.35,
-
-    elevation: 19,
-    backgroundColor: 'darkblue',
-    padding: 13,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  signinText: {
-    color: '#fff',
-    fontFamily: 'Poppins-SemiBold',
-    fontSize: 15,
   },
   createAccountContainer: {
     flexDirection: 'row',
