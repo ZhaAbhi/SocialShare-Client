@@ -14,7 +14,7 @@ import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 
 const LoginScreen = ({navigation, route}) => {
-  console.log(route.params['id']);
+  console.log(route.params?.id);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView>

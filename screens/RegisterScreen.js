@@ -41,13 +41,6 @@ const RegisterScreen = ({navigation}) => {
               onPress={() => navigation.navigate('Login')}>
               Already have an account?
             </Text>
-            <View style={styles.createAccountContainer}>
-              <Text style={styles.continueText}>or continue with</Text>
-              <TouchableOpacity style={styles.githubLoginContainer}>
-                <Image source={GithubLogo} style={styles.githublogo} />
-                <Text style={styles.githubText}>GitHub</Text>
-              </TouchableOpacity>
-            </View>
           </View>
         </View>
       </SafeAreaView>
