@@ -13,7 +13,8 @@ import GithubLogo from '../assets/images/Github-logo.png';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({navigation, route}) => {
+  console.log(route.params['id']);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView>
