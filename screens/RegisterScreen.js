@@ -2,40 +2,44 @@ import React from 'react';
 import {
   View,
   Text,
-  SafeAreaView,
   TouchableWithoutFeedback,
+  SafeAreaView,
+  StyleSheet,
   Keyboard,
   Image,
-  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
   TouchableOpacity,
 } from 'react-native';
-import GithubLogo from '../assets/images/Github-logo.png';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
+import GithubLogo from '../assets/images/Github-logo.png';
 
-const LoginScreen = ({navigation}) => {
+const RegisterScreen = ({navigation}) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView>
         <View style={styles.headlineContainer}>
-          <Text style={styles.loginText}>Login here</Text>
+          <Text style={styles.loginText}>Create Account</Text>
           <View style={{marginTop: '5%'}}>
-            <Text style={styles.welcomeText}>Welcome back you've</Text>
             <Text style={[styles.welcomeText, {textAlign: 'center'}]}>
-              been missed!
+              Create account so you can
+            </Text>
+            <Text style={[styles.welcomeText]}>
+              explore, share and chat with friends!
             </Text>
           </View>
         </View>
         <View style={{padding: 20, marginTop: 30}}>
           <AppTextInput placeholder="Email" style={{marginBottom: 26}} />
-          <AppTextInput placeholder="Password" />
-          <Text style={styles.forgotPasswordText}>Forget your password?</Text>
-          <AppButton title="Sign in" containerStyle={{marginTop: 28}} />
+          <AppTextInput placeholder="Password" style={{marginBottom: 26}} />
+          <AppTextInput placeholder="Confirm Password" />
+          <AppButton title="Register" containerStyle={{marginTop: 28}} />
           <View style={styles.createAccount}>
             <Text
-              style={styles.createAccountText}
-              onPress={() => navigation.navigate('Register')}>
-              Create a new account
+              style={styles.alreadyAccountText}
+              onPress={() => navigation.navigate('Login')}>
+              Already have an account?
             </Text>
             <View style={styles.createAccountContainer}>
               <Text style={styles.continueText}>or continue with</Text>
@@ -74,12 +78,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingLeft: 10,
   },
-  forgotPasswordText: {
-    marginLeft: 'auto',
-    marginTop: 35,
-    fontFamily: 'Poppins-SemiBold',
-    color: 'darkblue',
-  },
   createAccountContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -95,7 +93,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 30,
   },
-  createAccountText: {
+  alreadyAccountText: {
     fontFamily: 'Poppins-SemiBold',
     color: '#000',
   },
@@ -119,4 +117,4 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
 });
-export default LoginScreen;
+export default RegisterScreen;

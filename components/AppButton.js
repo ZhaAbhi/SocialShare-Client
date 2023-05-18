@@ -3,7 +3,9 @@ import {TouchableOpacity, StyleSheet, Text} from 'react-native';
 
 const AppButton = ({title, containerStyle, titleStyle}) => {
   return (
-    <TouchableOpacity style={[styles.buttonContainer, containerStyle]}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      style={[styles.buttonContainer, containerStyle]}>
       <Text style={[styles.buttonText, titleStyle]}>{title}</Text>
     </TouchableOpacity>
   );
