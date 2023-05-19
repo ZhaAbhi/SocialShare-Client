@@ -1,14 +1,20 @@
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeStackNavigator from './HomeStackNavigator';
+
 import Icon from 'react-native-vector-icons/AntDesign';
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const AuthenticatedNavigator = () => (
-  <Tab.Navigator>
+  <Tab.Navigator screenOptions={{headerShown: false}}>
     <Tab.Screen
       name="HomeTab"
       component={HomeStackNavigator}
-      options={{tabBarIcon: () => <Icon name="home" size={30} />}}
+      options={{
+        tabBarLabel: 'Home',
+        tabBarIcon: ({size, color}) => (
+          <Icon name="home" size={size} color={color} />
+        ),
+      }}
     />
   </Tab.Navigator>
 );

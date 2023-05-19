@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, SafeAreaView} from 'react-native';
 
 const HomeScreen = () => {
   return (
-    <View>
+    <SafeAreaView
+      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>Welcome to Home page</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 export default HomeScreen;
