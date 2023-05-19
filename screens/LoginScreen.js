@@ -8,6 +8,7 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 import GithubLogo from '../assets/images/Github-logo.png';
 import AppTextInput from '../components/AppTextInput';
@@ -15,6 +16,10 @@ import AppButton from '../components/AppButton';
 
 const LoginScreen = ({navigation, route}) => {
   console.log(route.params?.id);
+
+  const handleLogin = () => {
+    Linking.openURL('http://192.168.1.71:8000/auth/github');
+  };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView>
@@ -40,7 +45,9 @@ const LoginScreen = ({navigation, route}) => {
             </Text>
             <View style={styles.createAccountContainer}>
               <Text style={styles.continueText}>or continue with</Text>
-              <TouchableOpacity style={styles.githubLoginContainer}>
+              <TouchableOpacity
+                style={styles.githubLoginContainer}
+                onPress={handleLogin}>
                 <Image source={GithubLogo} style={styles.githublogo} />
                 <Text style={styles.githubText}>GitHub</Text>
               </TouchableOpacity>

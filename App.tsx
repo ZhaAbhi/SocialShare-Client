@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import UnAuthenticatedNavigator from './navigation/UnAuthenticatedNavigator';
+import AuthenticatedNavigator from './navigation/AuthenticatedNavigator';
 
 const App = () => {
   const config = {
@@ -24,7 +25,8 @@ const App = () => {
 
   return (
     <NavigationContainer linking={linking}>
-      <UnAuthenticatedNavigator />
+      {/* <UnAuthenticatedNavigator /> */}
+      <AuthenticatedNavigator />
     </NavigationContainer>
   );
 };
