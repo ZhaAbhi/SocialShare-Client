@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   View,
   Text,
@@ -13,13 +13,50 @@ import {
 import GithubLogo from '../assets/images/Github-logo.png';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
+import AuthContext from '../context/AuthContext';
+import {InAppBrowser} from 'react-native-inappbrowser-reborn';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({navigation, route}) => {
-  console.log(route.params?.id);
+  const {setLoggedIn} = useContext(AuthContext);
 
-  const handleLogin = () => {
-    Linking.openURL('http://192.168.1.71:8000/auth/github');
+  const storeToken = async value => {
+    try {
+      await AsyncStorage.setItem('token', value);
+    } catch (e) {
+      // saving error
+      console('error saving the data');
+    }
   };
+
+  const handleLogin = async () => {
+    const url = 'http://192.168.1.71:8000/auth/github';
+    if (await InAppBrowser.isAvailable()) {
+      try {
+        if (await InAppBrowser.isAvailable()) {
+          InAppBrowser.openAuth(url, 'socialshare://', {
+            // iOS Properties
+            ephemeralWebSession: false,
+            // Android Properties
+            showTitle: false,
+            enableUrlBarHiding: true,
+            enableDefaultShare: false,
+          }).then(response => {
+            console.log(response);
+            if (response.type === 'success' && response.url) {
+              const parts = response.url.split('/login/');
+              const token = parts[1];
+              storeToken(token);
+              setLoggedIn(true);
+            }
+          });
+        } else Linking.openURL(url);
+      } catch (error) {
+        Linking.openURL(url);
+      }
+    }
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView>

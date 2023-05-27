@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,11 +6,17 @@ import {
   SafeAreaView,
   StyleSheet,
   Keyboard,
+  Alert,
 } from 'react-native';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
+import axios from 'axios';
 
 const RegisterScreen = ({navigation}) => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView>
@@ -26,10 +32,27 @@ const RegisterScreen = ({navigation}) => {
           </View>
         </View>
         <View style={{padding: 20, marginTop: 30}}>
-          <AppTextInput placeholder="Email" style={{marginBottom: 26}} />
-          <AppTextInput placeholder="Password" style={{marginBottom: 26}} />
-          <AppTextInput placeholder="Confirm Password" />
-          <AppButton title="Register" containerStyle={{marginTop: 28}} />
+          <AppTextInput
+            placeholder="Email"
+            style={{marginBottom: 26}}
+            onChangeText={email => setEmail(email)}
+          />
+          <AppTextInput
+            placeholder="Password"
+            style={{marginBottom: 26}}
+            onChangeText={password => setPassword(password)}
+          />
+          <AppTextInput
+            placeholder="Confirm Password"
+            onChangeText={confirmPassword =>
+              setConfirmPassword(confirmPassword)
+            }
+          />
+          <AppButton
+            title="Next"
+            containerStyle={{marginTop: 28}}
+            onPress={() => navigation.navigate('ProfileSetup')}
+          />
           <View style={styles.createAccount}>
             <Text
               style={styles.alreadyAccountText}
