@@ -16,9 +16,12 @@ import AppButton from '../components/AppButton';
 import AuthContext from '../context/AuthContext';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const LoginScreen = ({navigation, route}) => {
   const {setLoggedIn} = useContext(AuthContext);
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   const storeToken = async value => {
     try {
@@ -30,6 +33,27 @@ const LoginScreen = ({navigation, route}) => {
   };
 
   const handleLogin = async () => {
+    try {
+      const userData = {email, password};
+      if (userData) {
+        await axios({
+          url: 'http://192.168.1.71:8000/login',
+          method: 'post',
+          data: userData,
+        }).then(res => {
+          if (res.data) {
+            const token = res.data;
+            storeToken(token);
+            setLoggedIn(true);
+          }
+        });
+      }
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+
+  const handleGithubLogin = async () => {
     const url = 'http://192.168.1.71:8000/auth/github';
     if (await InAppBrowser.isAvailable()) {
       try {
@@ -70,10 +94,21 @@ const LoginScreen = ({navigation, route}) => {
           </View>
         </View>
         <View style={{padding: 20, marginTop: 30}}>
-          <AppTextInput placeholder="Email" style={{marginBottom: 26}} />
-          <AppTextInput placeholder="Password" />
+          <AppTextInput
+            placeholder="Email"
+            style={{marginBottom: 26}}
+            onChangeText={email => setEmail(email)}
+          />
+          <AppTextInput
+            placeholder="Password"
+            onChangeText={password => setPassword(password)}
+          />
           <Text style={styles.forgotPasswordText}>Forget your password?</Text>
-          <AppButton title="Sign in" containerStyle={{marginTop: 28}} />
+          <AppButton
+            title="Sign in"
+            containerStyle={{marginTop: 28}}
+            onPress={handleLogin}
+          />
           <View style={styles.createAccount}>
             <Text
               style={styles.createAccountText}
@@ -84,7 +119,7 @@ const LoginScreen = ({navigation, route}) => {
               <Text style={styles.continueText}>or continue with</Text>
               <TouchableOpacity
                 style={styles.githubLoginContainer}
-                onPress={handleLogin}>
+                onPress={handleGithubLogin}>
                 <Image source={GithubLogo} style={styles.githublogo} />
                 <Text style={styles.githubText}>GitHub</Text>
               </TouchableOpacity>

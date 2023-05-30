@@ -2,7 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, SafeAreaView, Alert, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import LoadingImage from '../assets/images/loadingImage.jpeg';
+import AppHeader from '../components/AppHeader';
+import TopTabNavigator from '../navigation/TopTabNavigator';
+import PostButton from '../components/PostButton';
 
 const HomeScreen = ({route}) => {
   const [user, setUser] = useState();
@@ -31,18 +33,20 @@ const HomeScreen = ({route}) => {
   useEffect(() => {
     getData();
   }, []);
-  console.log(user);
   return (
-    <SafeAreaView
-      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Welcome to Home page</Text>
-      {user && <Text>{user.name}</Text>}
-      {user && user.profileImage === undefined ? (
-        <Image source={LoadingImage} style={{height: 50, width: 50}} />
-      ) : (
-        <Text>There is profile image</Text>
-      )}
-    </SafeAreaView>
+    <>
+      <SafeAreaView>
+        {user && <AppHeader username={user.username} />}
+        <View
+          style={{
+            height: 0.3,
+            width: '100%',
+            backgroundColor: 'lightgrey',
+          }}></View>
+      </SafeAreaView>
+      <TopTabNavigator />
+      <PostButton />
+    </>
   );
 };
 export default HomeScreen;

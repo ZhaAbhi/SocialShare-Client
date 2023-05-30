@@ -1,5 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeSreen';
+import TopTabNavigator from './TopTabNavigator';
 
 const Stack = createNativeStackNavigator();
 

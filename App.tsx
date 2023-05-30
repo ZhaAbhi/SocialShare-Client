@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import UnAuthenticatedNavigator from './navigation/UnAuthenticatedNavigator';
 import AuthenticatedNavigator from './navigation/AuthenticatedNavigator';
 import AuthContext from './context/AuthContext';
+import TopTabNavigator from './navigation/TopTabNavigator';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -29,8 +30,7 @@ const App = () => {
   return (
     <NavigationContainer linking={linking}>
       <AuthContext.Provider value={{loggedIn, setLoggedIn}}>
-        {/* {loggedIn ? <AuthenticatedNavigator /> : <UnAuthenticatedNavigator />} */}
-        <UnAuthenticatedNavigator />
+        {loggedIn ? <AuthenticatedNavigator /> : <UnAuthenticatedNavigator />}
       </AuthContext.Provider>
     </NavigationContainer>
   );

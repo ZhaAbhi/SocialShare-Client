@@ -2,6 +2,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeStackNavigator from './HomeStackNavigator';
 
 import Icon from 'react-native-vector-icons/AntDesign';
+import TopTabNavigator from './TopTabNavigator';
 const Tab = createBottomTabNavigator();
 
 const AuthenticatedNavigator = () => (
