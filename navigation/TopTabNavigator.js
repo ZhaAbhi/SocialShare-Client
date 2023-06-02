@@ -6,7 +6,8 @@ const TopTab = createMaterialTopTabNavigator();
 
 const TopTabNavigator = () => {
   return (
-    <TopTab.Navigator>
+    <TopTab.Navigator
+      screenOptions={{tabBarIndicatorStyle: {backgroundColor: 'darkblue'}}}>
       <TopTab.Screen name="Feed" component={Feed} />
       <TopTab.Screen name="AI Chat" component={AIChat} />
     </TopTab.Navigator>

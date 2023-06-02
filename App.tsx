@@ -1,12 +1,14 @@
+import 'react-native-gesture-handler';
 import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import UnAuthenticatedNavigator from './navigation/UnAuthenticatedNavigator';
 import AuthenticatedNavigator from './navigation/AuthenticatedNavigator';
 import AuthContext from './context/AuthContext';
-import TopTabNavigator from './navigation/TopTabNavigator';
+import UserContext from './context/UserContext';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState();
 
   const config = {
     screens: {
@@ -30,7 +32,9 @@ const App = () => {
   return (
     <NavigationContainer linking={linking}>
       <AuthContext.Provider value={{loggedIn, setLoggedIn}}>
-        {loggedIn ? <AuthenticatedNavigator /> : <UnAuthenticatedNavigator />}
+        <UserContext.Provider value={{user, setUser}}>
+          {loggedIn ? <AuthenticatedNavigator /> : <UnAuthenticatedNavigator />}
+        </UserContext.Provider>
       </AuthContext.Provider>
     </NavigationContainer>
   );

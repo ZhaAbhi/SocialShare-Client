@@ -4,7 +4,7 @@ import LoadingImage from '../assets/images/loadingImage.jpeg';
 
 const AppHeader = ({username}) => {
   return (
-    <View style={{padding: 10}}>
+    <View style={{padding: 10, height: 45, zIndex: 1000, elevation: 1000}}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Image
           source={LoadingImage}

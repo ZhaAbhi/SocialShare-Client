@@ -1,9 +1,10 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 
-const PostButton = () => {
+const PostButton = ({onPress}) => {
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={{
         height: 50,
         width: 50,

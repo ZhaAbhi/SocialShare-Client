@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, Text, SafeAreaView, Alert, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import AppHeader from '../components/AppHeader';
 import TopTabNavigator from '../navigation/TopTabNavigator';
 import PostButton from '../components/PostButton';
+import UserContext from '../context/UserContext';
 
-const HomeScreen = ({route}) => {
-  const [user, setUser] = useState();
+const HomeScreen = ({navigation, route}) => {
+  const {user, setUser} = useContext(UserContext);
   const getData = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
@@ -19,6 +20,7 @@ const HomeScreen = ({route}) => {
         },
       }).then(res => {
         if (res.data) {
+          console.log(res.data);
           setUser(res.data);
         }
       });
@@ -45,7 +47,7 @@ const HomeScreen = ({route}) => {
           }}></View>
       </SafeAreaView>
       <TopTabNavigator />
-      <PostButton />
+      <PostButton onPress={() => navigation.navigate('PostContent')} />
     </>
   );
 };
