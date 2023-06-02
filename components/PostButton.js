@@ -6,6 +6,7 @@ const PostButton = ({onPress}) => {
     <TouchableOpacity
       onPress={onPress}
       style={{
+        flex: 1,
         height: 50,
         width: 50,
         borderRadius: 50,
@@ -15,6 +16,16 @@ const PostButton = ({onPress}) => {
         position: 'absolute',
         right: 15,
         bottom: 15,
+        opacity: 0.8,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
       }}>
       <Text style={{fontSize: 30, fontWeight: 'bold', color: '#fff'}}>+</Text>
     </TouchableOpacity>

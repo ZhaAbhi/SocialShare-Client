@@ -1,7 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeSreen';
-import TopTabNavigator from './TopTabNavigator';
 import PostContentScreen from '../screens/PostContentScreen';
+import PostDetailScreen from '../screens/PostDetailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +18,15 @@ const HomeStackNavigator = () => (
       name="PostContent"
       component={PostContentScreen}
       options={{animation: 'slide_from_bottom'}}
+    />
+    <Stack.Screen
+      name="PostDetail"
+      component={PostDetailScreen}
+      options={{
+        headerShown: true,
+        headerTitle: 'See Post Detail',
+        animation: 'slide_from_right',
+      }}
     />
   </Stack.Navigator>
 );

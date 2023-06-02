@@ -3,7 +3,7 @@ import {View, Text, FlatList, ScrollView, Alert} from 'react-native';
 import FeedContainer from './FeedContainer';
 import axios from 'axios';
 
-const Feed = () => {
+const Feed = ({navigation}) => {
   const [userPosts, setUserPosts] = useState();
   const [refreshing, setRefreshing] = useState(true);
 
@@ -40,7 +40,12 @@ const Feed = () => {
         <FlatList
           data={userPosts}
           keyExtractor={item => item._id}
-          renderItem={({item}) => <FeedContainer item={item} />}
+          renderItem={({item}) => (
+            <FeedContainer
+              item={item}
+              onPress={() => navigation.navigate('PostDetail', item)}
+            />
+          )}
           showsVerticalScrollIndicator={false}
           onRefresh={fetchAllUserPosts}
           refreshing={refreshing}
