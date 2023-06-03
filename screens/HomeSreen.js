@@ -20,7 +20,6 @@ const HomeScreen = ({navigation, route}) => {
         },
       }).then(res => {
         if (res.data) {
-          console.log(res.data);
           setUser(res.data);
         }
       });

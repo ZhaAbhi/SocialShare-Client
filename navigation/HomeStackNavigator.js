@@ -24,7 +24,7 @@ const HomeStackNavigator = () => (
       component={PostDetailScreen}
       options={{
         headerShown: true,
-        headerTitle: 'See Post Detail',
+        headerTitle: 'Post',
         animation: 'slide_from_right',
       }}
     />
