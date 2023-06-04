@@ -1,9 +1,10 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeSreen';
 import PostContentScreen from '../screens/PostContentScreen';
 import PostDetailScreen from '../screens/PostDetailScreen';
+import CommentModalScreen from '../screens/CommenModalScreen';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const HomeStackNavigator = () => (
   <Stack.Navigator
@@ -17,7 +18,7 @@ const HomeStackNavigator = () => (
     <Stack.Screen
       name="PostContent"
       component={PostContentScreen}
-      options={{animation: 'slide_from_bottom'}}
+      options={{...TransitionPresets.ModalSlideFromBottomIOS}}
     />
     <Stack.Screen
       name="PostDetail"
@@ -25,7 +26,15 @@ const HomeStackNavigator = () => (
       options={{
         headerShown: true,
         headerTitle: 'Post',
-        animation: 'slide_from_right',
+        ...TransitionPresets.SlideFromRightIOS,
+      }}
+    />
+    <Stack.Screen
+      name="CommentModal"
+      component={CommentModalScreen}
+      options={{
+        ...TransitionPresets.ModalPresentationIOS,
+        gestureEnabled: true,
       }}
     />
   </Stack.Navigator>

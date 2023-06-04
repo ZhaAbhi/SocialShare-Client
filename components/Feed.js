@@ -8,7 +8,6 @@ const Feed = ({navigation}) => {
   const [refreshing, setRefreshing] = useState(true);
 
   const fetchAllUserPosts = async () => {
-    setRefreshing(true);
     try {
       await axios({
         url: 'http://192.168.1.71:8000/post/retrieve',
@@ -32,7 +31,13 @@ const Feed = ({navigation}) => {
 
   useEffect(() => {
     fetchAllUserPosts();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchAllUserPosts();
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View>
@@ -43,7 +48,9 @@ const Feed = ({navigation}) => {
           renderItem={({item}) => (
             <FeedContainer
               item={item}
-              onPress={() => navigation.navigate('PostDetail', item)}
+              onPress={() =>
+                navigation.navigate('PostDetail', {postId: item._id})
+              }
             />
           )}
           showsVerticalScrollIndicator={false}

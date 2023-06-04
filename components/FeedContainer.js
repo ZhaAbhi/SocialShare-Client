@@ -7,12 +7,14 @@ import RepostIcon from 'react-native-vector-icons/EvilIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import UserContext from '../context/UserContext';
+import {useNavigation} from '@react-navigation/native';
 
 const FeedContainer = ({item, onPress}) => {
+  const navigation = useNavigation();
   const {user} = useContext(UserContext);
   const [like, setLike] = useState();
   const {email} = item.postedBy;
-  const {likesBy} = item;
+  const {likesBy, commentsBy} = item;
 
   const getFirstNameFromEmail = email.match(/^[A-Za-z]+/)[0];
 
@@ -38,16 +40,16 @@ const FeedContainer = ({item, onPress}) => {
       }
     }
   };
-
   const matchLikesByUser = () => {
     if (likesBy.includes(user._id)) {
-      setLike(true);
+      return setLike(true);
     }
+    return setLike(false);
   };
 
   useEffect(() => {
     matchLikesByUser();
-  }, []);
+  }, [likesBy, commentsBy]);
 
   return (
     <TouchableOpacity
@@ -102,12 +104,12 @@ const FeedContainer = ({item, onPress}) => {
           </TouchableOpacity>
 
           {/* comment */}
-          <Icons
-            name="comment-outline"
-            color="darkgrey"
-            size={18}
-            onPress={() => console.log('Like pressed')}
-          />
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('CommentModal', {postId: item._id})
+            }>
+            <Icons name="comment-outline" color="darkgrey" size={18} />
+          </TouchableOpacity>
           {/* repost */}
           <RepostIcon
             name="retweet"
