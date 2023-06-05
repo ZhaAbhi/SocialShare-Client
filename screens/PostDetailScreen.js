@@ -8,6 +8,9 @@ import {
   StyleSheet,
   ScrollView,
   Alert,
+  FlatList,
+  KeyboardAvoidingView,
+  TextInput,
 } from 'react-native';
 import LoadingImage from '../assets/images/loadingImage.jpeg';
 import moment from 'moment';
@@ -16,6 +19,9 @@ import RepostIcon from 'react-native-vector-icons/EvilIcons';
 import axios from 'axios';
 import UserContext from '../context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import serverUrl from '../config/serverAccess';
+import CommentCard from '../components/CommentCard';
+import SendIcon from 'react-native-vector-icons/FontAwesome';
 
 const PostDetailScreen = ({route, navigation}) => {
   const {postId} = route.params;
@@ -30,7 +36,7 @@ const PostDetailScreen = ({route, navigation}) => {
     if (getToken) {
       try {
         await axios({
-          url: `http://192.168.1.71:8000/post/like/${postId}`,
+          url: `${serverUrl}/post/like/${postId}`,
           method: 'post',
           headers: {
             Authorization: getToken,
@@ -51,7 +57,7 @@ const PostDetailScreen = ({route, navigation}) => {
   const getPostDetails = async () => {
     try {
       await axios({
-        url: `http://192.168.1.71:8000/post/${postId}`,
+        url: `${serverUrl}/post/${postId}`,
         method: 'get',
       }).then(res => {
         if (res.data.likesBy.includes(user._id)) {
@@ -70,7 +76,7 @@ const PostDetailScreen = ({route, navigation}) => {
   const postedDate = item && moment(item.createdAt).fromNow();
   return (
     item && (
-      <SafeAreaView>
+      <SafeAreaView style={{flex: 1}}>
         <View style={{padding: 10}}>
           <View
             style={{
@@ -136,9 +142,6 @@ const PostDetailScreen = ({route, navigation}) => {
                 size={18}
               />
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Icons name="comment-outline" color="darkgrey" size={18} />
-            </TouchableOpacity>
             {/* repost */}
             <TouchableOpacity>
               <RepostIcon name="retweet" color="darkgrey" size={25} />
@@ -155,17 +158,39 @@ const PostDetailScreen = ({route, navigation}) => {
               backgroundColor: 'lightgrey',
             }}></View>
         </View>
-        <ScrollView>
-          <Text style={{marginBottom: 40}}>This is my comment</Text>
-          <Text style={{marginBottom: 40}}>This is my comment</Text>
-          <Text style={{marginBottom: 40}}>This is my comment</Text>
-          <Text style={{marginBottom: 40}}>This is my comment</Text>
-          <Text style={{marginBottom: 40}}>This is my comment</Text>
-          <Text style={{marginBottom: 40}}>This is my comment</Text>
-          <Text style={{marginBottom: 40}}>This is my comment</Text>
-          <Text style={{marginBottom: 40}}>This is my comment</Text>
-          <Text style={{marginBottom: 40}}>This is my comment</Text>
-        </ScrollView>
+        <FlatList
+          data={item.commentsBy}
+          keyExtractor={item => item._id}
+          renderItem={({item}) => <CommentCard comment={item} />}
+        />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}>
+          <View
+            style={{
+              padding: 10,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <TextInput
+              placeholder="Write your comment"
+              multiline={true}
+              numberOfLines={2}
+              //textAlignVertical="top"
+              style={{
+                flex: 1,
+                //height: 40,
+                backgroundColor: 'lightgrey',
+                padding: 10,
+                borderRadius: 20,
+              }}
+            />
+            <View>
+              <SendIcon name="send" size={25} style={{marginLeft: 5}} />
+            </View>
+          </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     )
   );

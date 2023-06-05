@@ -17,6 +17,7 @@ import AuthContext from '../context/AuthContext';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import serverUrl from '../config/serverAccess';
 
 const LoginScreen = ({navigation, route}) => {
   const {setLoggedIn} = useContext(AuthContext);
@@ -37,7 +38,7 @@ const LoginScreen = ({navigation, route}) => {
       const userData = {email, password};
       if (userData) {
         await axios({
-          url: 'http://192.168.1.71:8000/login',
+          url: `${serverUrl}/login`,
           method: 'post',
           data: userData,
         }).then(res => {
@@ -54,7 +55,7 @@ const LoginScreen = ({navigation, route}) => {
   };
 
   const handleGithubLogin = async () => {
-    const url = 'http://192.168.1.71:8000/auth/github';
+    const url = `${serverUrl}/auth/github`;
     if (await InAppBrowser.isAvailable()) {
       try {
         if (await InAppBrowser.isAvailable()) {

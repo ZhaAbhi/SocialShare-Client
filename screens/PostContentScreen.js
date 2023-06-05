@@ -11,6 +11,7 @@ import {
 import LoadingImage from '../assets/images/loadingImage.jpeg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import serverUrl from '../config/serverAccess';
 
 const PostContentScreen = ({navigation}) => {
   const [content, setContent] = useState();
@@ -20,7 +21,7 @@ const PostContentScreen = ({navigation}) => {
       const token = await AsyncStorage.getItem('token');
       if (token) {
         await axios({
-          url: 'http://192.168.1.71:8000/post',
+          url: `${serverUrl}/post`,
           method: 'post',
           data: {
             content,
@@ -107,6 +108,7 @@ const PostContentScreen = ({navigation}) => {
           autoFocus={true}
           placeholder="What's happening?"
           multiline={true}
+          textAlignVertical="top"
           style={{
             height: '60%',
             borderWidth: 1,

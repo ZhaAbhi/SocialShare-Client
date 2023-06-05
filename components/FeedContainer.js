@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import UserContext from '../context/UserContext';
 import {useNavigation} from '@react-navigation/native';
+import serverUrl from '../config/serverAccess';
 
 const FeedContainer = ({item, onPress}) => {
   const navigation = useNavigation();
@@ -23,7 +24,7 @@ const FeedContainer = ({item, onPress}) => {
     if (getToken) {
       try {
         await axios({
-          url: `http://192.168.1.71:8000/post/like/${postId}`,
+          url: `${serverUrl}/post/like/${postId}`,
           method: 'post',
           headers: {
             Authorization: getToken,

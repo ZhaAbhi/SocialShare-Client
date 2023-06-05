@@ -13,6 +13,7 @@ import {
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 import axios from 'axios';
+import serverUrl from '../config/serverAccess';
 
 const RegisterScreen = ({navigation}) => {
   const [username, setUsername] = useState();
@@ -34,7 +35,7 @@ const RegisterScreen = ({navigation}) => {
     };
     try {
       await axios({
-        url: 'http://192.168.1.71:8000/register',
+        url: `${serverUrl}/register`,
         method: 'post',
         data: body,
         headers: {

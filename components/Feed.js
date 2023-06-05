@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {View, Text, FlatList, ScrollView, Alert} from 'react-native';
 import FeedContainer from './FeedContainer';
 import axios from 'axios';
+import serverUrl from '../config/serverAccess';
 
 const Feed = ({navigation}) => {
   const [userPosts, setUserPosts] = useState();
@@ -10,7 +11,7 @@ const Feed = ({navigation}) => {
   const fetchAllUserPosts = async () => {
     try {
       await axios({
-        url: 'http://192.168.1.71:8000/post/retrieve',
+        url: `${serverUrl}/post/retrieve`,
         method: 'get',
       })
         .then(res => {

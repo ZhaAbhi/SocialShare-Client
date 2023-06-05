@@ -9,6 +9,7 @@ const AuthenticatedNavigator = () => (
       name="HomeTab"
       component={HomeStackNavigator}
       options={{
+        tabBarHideOnKeyboard: true,
         tabBarLabel: 'Home',
         tabBarIcon: ({size, color}) => (
           <Icon name="home" size={size} color={color} />

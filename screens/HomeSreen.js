@@ -6,6 +6,7 @@ import AppHeader from '../components/AppHeader';
 import TopTabNavigator from '../navigation/TopTabNavigator';
 import PostButton from '../components/PostButton';
 import UserContext from '../context/UserContext';
+import serverUrl from '../config/serverAccess';
 
 const HomeScreen = ({navigation, route}) => {
   const {user, setUser} = useContext(UserContext);
@@ -13,7 +14,7 @@ const HomeScreen = ({navigation, route}) => {
     try {
       const token = await AsyncStorage.getItem('token');
       await axios({
-        url: 'http://192.168.1.71:8000/',
+        url: `${serverUrl}/`,
         method: 'get',
         headers: {
           Authorization: token,
