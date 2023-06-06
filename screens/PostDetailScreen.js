@@ -28,8 +28,32 @@ const PostDetailScreen = ({route, navigation}) => {
   const {user} = useContext(UserContext);
   const [item, setItem] = useState();
   const [like, setLike] = useState();
+  const [comment, setComment] = useState();
 
   const emailFirstName = item && item.postedBy.email.match(/^[A-Za-z]+/)[0];
+
+  const handlePostComment = async () => {
+    const getToken = await AsyncStorage.getItem('token');
+    if (getToken) {
+      try {
+        await axios({
+          url: `${serverUrl}/post/comment/${postId}`,
+          method: 'post',
+          data: {comment},
+          headers: {
+            Authorization: getToken,
+          },
+        }).then(res => {
+          if (res.status === 201) {
+            getPostDetails();
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    return setComment('');
+  };
 
   const handlePostLike = async postId => {
     const getToken = await AsyncStorage.getItem('token');
@@ -158,6 +182,14 @@ const PostDetailScreen = ({route, navigation}) => {
               backgroundColor: 'lightgrey',
             }}></View>
         </View>
+        <Text
+          style={{
+            fontFamily: 'Poppins-semibold',
+            fontSize: 17,
+            textDecorationLine: 'underline',
+          }}>
+          Comments
+        </Text>
         <FlatList
           data={item.commentsBy}
           keyExtractor={item => item._id}
@@ -174,6 +206,8 @@ const PostDetailScreen = ({route, navigation}) => {
               alignItems: 'center',
             }}>
             <TextInput
+              value={comment}
+              onChangeText={text => setComment(text)}
               placeholder="Write your comment"
               multiline={true}
               numberOfLines={2}
@@ -186,9 +220,9 @@ const PostDetailScreen = ({route, navigation}) => {
                 borderRadius: 20,
               }}
             />
-            <View>
+            <TouchableOpacity onPress={handlePostComment}>
               <SendIcon name="send" size={25} style={{marginLeft: 5}} />
-            </View>
+            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>

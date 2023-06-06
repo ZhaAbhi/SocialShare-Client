@@ -15,15 +15,7 @@ import SendIcon from 'react-native-vector-icons/FontAwesome';
 const CommentCard = ({comment}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={{padding: 5, marginBottom: 15}}>
-        <Text
-          style={{
-            fontFamily: 'Poppins-semibold',
-            fontSize: 17,
-            textDecorationLine: 'underline',
-          }}>
-          Comments
-        </Text>
+      <View style={{padding: 5, marginBottom: 5}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
             source={LoadingImage}

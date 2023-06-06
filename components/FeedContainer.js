@@ -42,7 +42,7 @@ const FeedContainer = ({item, onPress}) => {
     }
   };
   const matchLikesByUser = () => {
-    if (likesBy.includes(user._id)) {
+    if (likesBy?.includes(user?._id)) {
       return setLike(true);
     }
     return setLike(false);
