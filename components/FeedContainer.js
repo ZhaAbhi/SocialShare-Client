@@ -14,6 +14,7 @@ const FeedContainer = ({item, onPress}) => {
   const navigation = useNavigation();
   const {user} = useContext(UserContext);
   const [like, setLike] = useState();
+  const [isCommented, setIsCommented] = useState();
   const {email} = item.postedBy;
   const {likesBy, commentsBy} = item;
 
@@ -42,14 +43,25 @@ const FeedContainer = ({item, onPress}) => {
     }
   };
   const matchLikesByUser = () => {
-    if (likesBy?.includes(user?._id)) {
+    if (likesBy && likesBy.includes(user?._id)) {
       return setLike(true);
     }
     return setLike(false);
   };
 
+  const commentByUser = () => {
+    commentsBy.map(comment => {
+      if (comment.userId._id === user._id) {
+        setIsCommented(true);
+      } else {
+        setIsCommented(false);
+      }
+    });
+  };
+
   useEffect(() => {
     matchLikesByUser();
+    commentByUser();
   }, [likesBy, commentsBy]);
 
   return (
@@ -109,7 +121,11 @@ const FeedContainer = ({item, onPress}) => {
             onPress={() =>
               navigation.navigate('CommentModal', {postId: item._id})
             }>
-            <Icons name="comment-outline" color="darkgrey" size={18} />
+            <Icons
+              name="comment-outline"
+              color={isCommented ? 'green' : 'darkgrey'}
+              size={18}
+            />
           </TouchableOpacity>
           {/* repost */}
           <RepostIcon
