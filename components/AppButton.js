@@ -1,37 +1,37 @@
 import React from 'react';
-import {TouchableOpacity, StyleSheet, Text} from 'react-native';
+import {Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {colors} from '../config/colors';
 
-const AppButton = ({title, containerStyle, titleStyle, onPress}) => {
+const AppButton = ({title, containerStyle, textStyle, ...props}) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      activeOpacity={0.8}
-      style={[styles.buttonContainer, containerStyle]}>
-      <Text style={[styles.buttonText, titleStyle]}>{title}</Text>
+    <TouchableOpacity {...props} style={[styles.container, containerStyle]}>
+      <Text style={[styles.text, textStyle]}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    shadowColor: 'darkblue',
+  container: {
+    width: '100%',
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 20,
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 9,
+      height: 2,
     },
-    shadowOpacity: 0.5,
-    shadowRadius: 12.35,
-
-    elevation: 19,
-    backgroundColor: 'darkblue',
-    padding: 13,
-    borderRadius: 8,
-    alignItems: 'center',
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
-  buttonText: {
+  text: {
+    fontSize: 17,
+    letterSpacing: 2,
     color: '#fff',
-    fontFamily: 'Poppins-SemiBold',
-    fontSize: 15,
+    fontFamily: 'Poppins-Bold',
   },
 });
 export default AppButton;
