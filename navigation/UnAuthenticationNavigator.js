@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 const UnAuthenticationNavigator = () => (
   <Stack.Navigator
     initialRouteName="Welcome"
-    screenOptions={{cardStyle: {backgroundColor: '#fff'}}}>
+    screenOptions={{cardStyle: {backgroundColor: '#fff'}, headerShown:false}}>
     <Stack.Screen name="Welcome" component={WelcomeScreen} />
     <Stack.Screen name="Login" component={LoginScreen} />
   </Stack.Navigator>
