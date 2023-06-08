@@ -4,7 +4,7 @@ import WelcomeImage from '../assets/images/welcome.jpg';
 import AppButton from '../components/AppButton';
 import {colors} from '../config/colors';
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <Image source={WelcomeImage} style={styles.image} />
@@ -17,6 +17,7 @@ const WelcomeScreen = () => {
       </View>
       <View style={styles.buttonContainer}>
         <AppButton
+          onPress={() => navigation.navigate('Login')}
           activeOpacity={0.8}
           title="Login"
           containerStyle={{backgroundColor: colors.tertiary}}
