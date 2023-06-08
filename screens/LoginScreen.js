@@ -18,6 +18,7 @@ import AppButton from '../components/AppButton';
 import {colors} from '../config/colors';
 import SocialShareImage from '../assets/images/socialshare.png';
 import Githublogo from '../assets/images/Githublogo.png';
+import BackIcon from 'react-native-vector-icons/Ionicons';
 
 const LoginScreen = ({navigation}) => {
   return (
@@ -25,6 +26,31 @@ const LoginScreen = ({navigation}) => {
       style={{flex: 1}}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <SafeAreaView style={{flex: 1}}>
+        <TouchableOpacity
+          style={{
+            marginTop: 50,
+            marginLeft: 10,
+            zIndex: 1000,
+            height: 30,
+            width: 30,
+            position: 'absolute',
+            flex: 1,
+            backgroundColor: colors.primary,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 20,
+          }}
+          onPress={() => navigation.goBack()}>
+          <BackIcon
+            name="arrow-back-sharp"
+            size={20}
+            color="#fff"
+            style={{
+              borderRadius: 50,
+            }}
+          />
+        </TouchableOpacity>
+
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -92,7 +118,7 @@ const LoginScreen = ({navigation}) => {
                 }}>
                 Don't have an account?
               </Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Register')}>
                 <Text
                   style={{
                     fontFamily: 'Poppins-Bold',
