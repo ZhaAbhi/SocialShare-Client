@@ -22,7 +22,11 @@ const WelcomeScreen = ({navigation}) => {
           title="Login"
           containerStyle={{backgroundColor: colors.tertiary}}
         />
-        <AppButton activeOpacity={0.8} title="Register" />
+        <AppButton
+          activeOpacity={0.8}
+          title="Register"
+          onPress={() => navigation.navigate('Register')}
+        />
       </View>
     </SafeAreaView>
   );

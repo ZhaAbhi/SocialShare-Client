@@ -27,7 +27,7 @@ const LoginScreen = ({navigation}) => {
       <SafeAreaView style={{flex: 1}}>
         <TouchableOpacity
           style={styles.backButtonContainer}
-          onPress={() => navigation.goBack()}>
+          onPress={() => navigation.navigate('Welcome')}>
           <BackIcon
             name="arrow-back-sharp"
             size={20}

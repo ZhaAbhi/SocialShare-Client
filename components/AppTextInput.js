@@ -6,6 +6,7 @@ const AppTextInput = ({placeholder, ...props}) => {
     <TextInput
       {...props}
       placeholder={placeholder}
+      placeholderTextColor="darkgrey"
       style={{
         height: 40,
         borderWidth: 1,
