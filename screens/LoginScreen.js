@@ -14,10 +14,10 @@ import {
 } from 'react-native';
 import AppButton from '../components/AppButton';
 import {colors} from '../config/colors';
-import SocialShareImage from '../assets/images/socialshare.png';
 import Githublogo from '../assets/images/Githublogo.png';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import AppTextInput from '../components/AppTextInput';
+import UnAuthenticatedHeader from '../components/UnAuthenticatedHeader';
 
 const LoginScreen = ({navigation}) => {
   return (
@@ -41,11 +41,10 @@ const LoginScreen = ({navigation}) => {
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={styles.scrollView}>
-            <Image source={SocialShareImage} style={styles.socialShareImage} />
-            <View style={styles.loginTitleContainer}>
-              <Text style={styles.welcomeBackTitle}>Welcome Back</Text>
-              <Text style={styles.signinTitle}>Please sign in to continue</Text>
-            </View>
+            <UnAuthenticatedHeader
+              greetText="Welcome Back"
+              greetDes="Please add your credentials to continue"
+            />
             <View style={styles.textInputContainer}>
               <AppTextInput placeholder="Email" />
               <AppTextInput placeholder="Password" />
