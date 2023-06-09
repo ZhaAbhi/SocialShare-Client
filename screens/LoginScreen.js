@@ -92,25 +92,6 @@ const styles = StyleSheet.create({
   scrollView: {
     marginTop: 25,
   },
-  socialShareImage: {
-    height: 100,
-    width: 200,
-    alignSelf: 'center',
-  },
-  loginTitleContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  welcomeBackTitle: {
-    fontFamily: 'Poppins-Light',
-    color: colors.secondary,
-    fontSize: 17,
-  },
-  signinTitle: {
-    fontFamily: 'Poppins-Light',
-    color: colors.secondary,
-    fontSize: 17,
-  },
   textInputContainer: {
     padding: 20,
   },
