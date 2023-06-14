@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TextInput} from 'react-native';
 
-const AppTextInput = ({placeholder, error, ...props}) => {
+const AppTextInput = ({placeholder, error, showPassword, ...props}) => {
   return (
     <View>
       <TextInput
@@ -17,6 +17,7 @@ const AppTextInput = ({placeholder, error, ...props}) => {
           borderRadius: 25,
         }}
       />
+
       {error !== '' && (
         <Text
           style={{

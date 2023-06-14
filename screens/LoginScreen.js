@@ -31,7 +31,14 @@ const LoginScreen = ({navigation}) => {
   const [loading, setLoading] = useState(false);
 
   const storeToken = async token => {
-    await AsyncStorage.setItem('accessToken', token);
+    try {
+      await AsyncStorage.setItem('accessToken', token).then(() => {
+        setLoading(false);
+        setLoggedIn(true);
+      });
+    } catch (error) {
+      return Alert.alert('Try logging again!');
+    }
   };
 
   const handleLogin = async () => {
@@ -54,8 +61,6 @@ const LoginScreen = ({navigation}) => {
       }).then(async res => {
         if (res.status === 201) {
           await storeToken(res.data.accessToken);
-          setLoading(false);
-          setLoggedIn(true);
         }
       });
     } catch (error) {
@@ -95,6 +100,7 @@ const LoginScreen = ({navigation}) => {
                 onChangeText={text => setEmail(text)}
               />
               <AppTextInput
+                secureTextEntry
                 placeholder="Password"
                 value={password}
                 onChangeText={text => setPassword(text)}

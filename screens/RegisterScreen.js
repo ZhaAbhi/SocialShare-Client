@@ -133,11 +133,13 @@ const RegisterScreen = ({navigation}) => {
                 error={errorEmail}
               />
               <AppTextInput
+                secureTextEntry
                 placeholder="Password"
                 value={password}
                 onChangeText={text => setPassword(text)}
               />
               <AppTextInput
+                secureTextEntry
                 placeholder="Confirm Password"
                 value={confirmPassword}
                 onChangeText={text => {
