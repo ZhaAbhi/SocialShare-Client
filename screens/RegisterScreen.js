@@ -11,6 +11,7 @@ import {
   Keyboard,
   StyleSheet,
   Alert,
+  Button,
 } from 'react-native';
 import UnAuthenticatedHeader from '../components/UnAuthenticatedHeader';
 import AppTextInput from '../components/AppTextInput';
@@ -73,7 +74,20 @@ const RegisterScreen = ({navigation}) => {
         method: 'post',
         data: userData,
       }).then(res => {
-        console.log(res.data);
+        if (res.status == 201) {
+          Alert.alert(
+            'Congratulation, registered successfully!',
+            'Please login to continue',
+            [
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              {text: 'OK', onPress: () => navigation.navigate('Login')},
+            ],
+          );
+        }
       });
     } catch (error) {
       if (error.response?.data?.error) {
