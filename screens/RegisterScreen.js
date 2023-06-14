@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import UnAuthenticatedHeader from '../components/UnAuthenticatedHeader';
 import AppTextInput from '../components/AppTextInput';
@@ -17,6 +18,51 @@ import AppButton from '../components/AppButton';
 import {colors} from '../config/colors';
 
 const RegisterScreen = ({navigation}) => {
+  const [username, setUsername] = useState('');
+  const [errorUsername, setErrorUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmedPassword] = useState('');
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
+
+  const checkEmailValidity = emailString => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(emailString);
+  };
+
+  const handleSubmit = () => {
+    const trimmedUsername = username.trim();
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+    const trimmedConfirmPassword = confirmPassword.trim();
+    if (
+      trimmedUsername === '' ||
+      trimmedEmail === '' ||
+      trimmedPassword === '' ||
+      trimmedConfirmPassword === ''
+    ) {
+      Alert.alert('All fields are required!');
+      return;
+    }
+
+    if (trimmedUsername.includes(' ')) {
+      setErrorUsername('Spaces are not allowed in username!');
+      return;
+    }
+    if (!checkEmailValidity(trimmedEmail)) {
+      setErrorEmail('Invalid email type!');
+      return;
+    }
+
+    if (trimmedPassword !== trimmedConfirmPassword) {
+      setErrorConfirmPassword("Password didn't matched!");
+      return;
+    }
+
+    return console.log('user registered successfully!');
+  };
+
   return (
     <KeyboardAvoidingView
       style={{flex: 1}}
@@ -29,11 +75,36 @@ const RegisterScreen = ({navigation}) => {
               greetDes="Become the part of thriving community!"
             />
             <View style={{padding: 24}}>
-              <AppTextInput placeholder="Username" />
-              <AppTextInput placeholder="Email" />
-              <AppTextInput placeholder="Password" />
-              <AppTextInput placeholder="Confirm Password" />
-              <AppButton title="Register" />
+              <AppTextInput
+                placeholder="Username"
+                value={username}
+                onChangeText={text => {
+                  setUsername(text), setErrorUsername('');
+                }}
+                error={errorUsername}
+              />
+              <AppTextInput
+                placeholder="Email"
+                value={email}
+                onChangeText={text => {
+                  setEmail(text), setErrorEmail('');
+                }}
+                error={errorEmail}
+              />
+              <AppTextInput
+                placeholder="Password"
+                value={password}
+                onChangeText={text => setPassword(text)}
+              />
+              <AppTextInput
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChangeText={text => {
+                  setConfirmedPassword(text), setErrorConfirmPassword('');
+                }}
+                error={errorConfirmPassword}
+              />
+              <AppButton title="Register" onPress={handleSubmit} />
             </View>
             <View style={styles.footerContainer}>
               <Text style={styles.footerText}>Already have an account?</Text>
