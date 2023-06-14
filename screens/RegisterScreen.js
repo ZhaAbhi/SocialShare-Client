@@ -16,6 +16,8 @@ import UnAuthenticatedHeader from '../components/UnAuthenticatedHeader';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 import {colors} from '../config/colors';
+import {register} from '../config/api';
+import axios from 'axios';
 
 const RegisterScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -31,7 +33,7 @@ const RegisterScreen = ({navigation}) => {
     return emailPattern.test(emailString);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const trimmedUsername = username.trim();
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
@@ -60,7 +62,24 @@ const RegisterScreen = ({navigation}) => {
       return;
     }
 
-    return console.log('user registered successfully!');
+    const userData = {
+      username: trimmedUsername,
+      email: trimmedEmail,
+      password: trimmedPassword,
+    };
+    try {
+      await axios({
+        url: register,
+        method: 'post',
+        data: userData,
+      }).then(res => {
+        console.log(res.data);
+      });
+    } catch (error) {
+      if (error.response?.data?.error) {
+        return Alert.alert(error.response.data.error);
+      }
+    }
   };
 
   return (
