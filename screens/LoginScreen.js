@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Alert,
 } from 'react-native';
 import AppButton from '../components/AppButton';
 import {colors} from '../config/colors';
@@ -18,8 +19,42 @@ import Githublogo from '../assets/images/Githublogo.png';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import AppTextInput from '../components/AppTextInput';
 import UnAuthenticatedHeader from '../components/UnAuthenticatedHeader';
+import axios from 'axios';
+import {login} from '../config/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const storeToken = async token => {
+    await AsyncStorage.setItem('accessToken', token);
+  };
+
+  const handleLogin = async () => {
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+    if (trimmedEmail === '' || trimmedPassword === '') {
+      return Alert.alert('Email and Password are required!');
+    }
+    const userData = {
+      email: trimmedEmail,
+      password: trimmedPassword,
+    };
+    try {
+      await axios({
+        url: login,
+        method: 'post',
+        data: userData,
+      }).then(async res => {
+        if (res.status === 201) {
+          await storeToken(res.data.accessToken);
+        }
+      });
+    } catch (error) {
+      return Alert.alert(error.response.data.error);
+    }
+  };
   return (
     <KeyboardAvoidingView
       style={{flex: 1}}
@@ -46,9 +81,17 @@ const LoginScreen = ({navigation}) => {
               greetDes="Please add your credentials to continue"
             />
             <View style={styles.textInputContainer}>
-              <AppTextInput placeholder="Email" />
-              <AppTextInput placeholder="Password" />
-              <AppButton title="Login" />
+              <AppTextInput
+                placeholder="Email"
+                value={email}
+                onChangeText={text => setEmail(text)}
+              />
+              <AppTextInput
+                placeholder="Password"
+                value={password}
+                onChangeText={text => setPassword(text)}
+              />
+              <AppButton title="Login" onPress={handleLogin} />
             </View>
             <View style={styles.footerRegisterContainer}>
               <Text style={styles.dontHvAccountText}>
