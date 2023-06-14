@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -22,19 +22,24 @@ import UnAuthenticatedHeader from '../components/UnAuthenticatedHeader';
 import axios from 'axios';
 import {login} from '../config/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthContext from '../context/AuthContext';
 
 const LoginScreen = ({navigation}) => {
+  const {setLoggedIn} = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const storeToken = async token => {
     await AsyncStorage.setItem('accessToken', token);
   };
 
   const handleLogin = async () => {
+    setLoading(true);
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
     if (trimmedEmail === '' || trimmedPassword === '') {
+      setLoading(false);
       return Alert.alert('Email and Password are required!');
     }
     const userData = {
@@ -49,9 +54,12 @@ const LoginScreen = ({navigation}) => {
       }).then(async res => {
         if (res.status === 201) {
           await storeToken(res.data.accessToken);
+          setLoading(false);
+          setLoggedIn(true);
         }
       });
     } catch (error) {
+      setLoading(false);
       return Alert.alert(error.response.data.error);
     }
   };
@@ -91,7 +99,11 @@ const LoginScreen = ({navigation}) => {
                 value={password}
                 onChangeText={text => setPassword(text)}
               />
-              <AppButton title="Login" onPress={handleLogin} />
+              <AppButton
+                title="Login"
+                onPress={handleLogin}
+                buffering={loading}
+              />
             </View>
             <View style={styles.footerRegisterContainer}>
               <Text style={styles.dontHvAccountText}>
