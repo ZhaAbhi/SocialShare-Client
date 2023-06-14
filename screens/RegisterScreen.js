@@ -28,6 +28,7 @@ const RegisterScreen = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmedPassword] = useState('');
   const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const checkEmailValidity = emailString => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,6 +36,7 @@ const RegisterScreen = ({navigation}) => {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     const trimmedUsername = username.trim();
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
@@ -45,20 +47,24 @@ const RegisterScreen = ({navigation}) => {
       trimmedPassword === '' ||
       trimmedConfirmPassword === ''
     ) {
+      setLoading(false);
       Alert.alert('All fields are required!');
       return;
     }
 
     if (trimmedUsername.includes(' ')) {
+      setLoading(false);
       setErrorUsername('Spaces are not allowed in username!');
       return;
     }
     if (!checkEmailValidity(trimmedEmail)) {
+      setLoading(false);
       setErrorEmail('Invalid email type!');
       return;
     }
 
     if (trimmedPassword !== trimmedConfirmPassword) {
+      setLoading(false);
       setErrorConfirmPassword("Password didn't matched!");
       return;
     }
@@ -75,6 +81,7 @@ const RegisterScreen = ({navigation}) => {
         data: userData,
       }).then(res => {
         if (res.status == 201) {
+          setLoading(false);
           Alert.alert(
             'Congratulation, registered successfully!',
             'Please login to continue',
@@ -91,6 +98,7 @@ const RegisterScreen = ({navigation}) => {
       });
     } catch (error) {
       if (error.response?.data?.error) {
+        setLoading(false);
         return Alert.alert(error.response.data.error);
       }
     }
@@ -137,7 +145,11 @@ const RegisterScreen = ({navigation}) => {
                 }}
                 error={errorConfirmPassword}
               />
-              <AppButton title="Register" onPress={handleSubmit} />
+              <AppButton
+                title="Register"
+                onPress={handleSubmit}
+                buffering={loading}
+              />
             </View>
             <View style={styles.footerContainer}>
               <Text style={styles.footerText}>Already have an account?</Text>

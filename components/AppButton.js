@@ -1,11 +1,23 @@
 import React from 'react';
-import {Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import {colors} from '../config/colors';
 
-const AppButton = ({title, containerStyle, textStyle, ...props}) => {
+const AppButton = ({title, containerStyle, textStyle, buffering, ...props}) => {
   return (
-    <TouchableOpacity {...props} style={[styles.container, containerStyle]}>
-      <Text style={[styles.text, textStyle]}>{title}</Text>
+    <TouchableOpacity
+      disabled={buffering}
+      {...props}
+      style={[styles.container, containerStyle]}>
+      {buffering ? (
+        <ActivityIndicator size="small" color="#fff" style={{fontSize: 14}} />
+      ) : (
+        <Text style={[styles.text, textStyle]}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 };
