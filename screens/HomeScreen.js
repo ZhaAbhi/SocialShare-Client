@@ -1,10 +1,13 @@
-import React, {useEffect} from 'react';
-import {View, Text, Alert} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {home} from '../config/api';
 import axios from 'axios';
+import TopTabNavigator from '../navigation/TopTabNavigator';
+import UserContext from '../context/UserContext';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
+  const {setUser} = useContext(UserContext);
   const fetchUserInfo = async () => {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {
@@ -18,7 +21,9 @@ const HomeScreen = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       }).then(res => {
-        console.log(res.data);
+        if (res.status === 200) {
+          setUser(res.data.user);
+        }
       });
     } catch (error) {
       console.log(error.response);
@@ -27,11 +32,7 @@ const HomeScreen = () => {
   useEffect(() => {
     fetchUserInfo();
   }, []);
-  return (
-    <View>
-      <Text>This is home screen</Text>
-    </View>
-  );
+  return <TopTabNavigator />;
 };
 
 export default HomeScreen;

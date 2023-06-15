@@ -1,13 +1,14 @@
-import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from '../screens/HomeScreen';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import HomeStackNavigator from './HomeStackNavigator';
+import AppHeader from '../components/AppHeader';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const AuthenticationNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
-    </Stack.Navigator>
+    <Tab.Navigator screenOptions={{headerLeft: () => <AppHeader />}}>
+      <Tab.Screen name="Home" component={HomeStackNavigator} />
+    </Tab.Navigator>
   );
 };
 
