@@ -5,9 +5,10 @@ import {home} from '../config/api';
 import axios from 'axios';
 import TopTabNavigator from '../navigation/TopTabNavigator';
 import UserContext from '../context/UserContext';
+import AppHeader from '../components/AppHeader';
 
 const HomeScreen = ({navigation}) => {
-  const {setUser} = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
   const fetchUserInfo = async () => {
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (!accessToken) {
@@ -32,7 +33,17 @@ const HomeScreen = ({navigation}) => {
   useEffect(() => {
     fetchUserInfo();
   }, []);
-  return <TopTabNavigator />;
+  return (
+    user && (
+      <>
+        <AppHeader
+          username={user.username}
+          onPress={() => navigation.openDrawer()}
+        />
+        <TopTabNavigator />
+      </>
+    )
+  );
 };
 
 export default HomeScreen;

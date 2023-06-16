@@ -6,7 +6,7 @@ const TopTab = createMaterialTopTabNavigator();
 
 const TopTabNavigator = () => {
   return (
-    <TopTab.Navigator>
+    <TopTab.Navigator screenOptions={{}}>
       <TopTab.Screen name="Feed" component={FeedScreen} />
       <TopTab.Screen name="Following" component={FollowingFeedScreen} />
     </TopTab.Navigator>
