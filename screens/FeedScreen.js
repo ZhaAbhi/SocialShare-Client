@@ -5,6 +5,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {retrievePosts} from '../config/api';
 import PostContainer from '../components/PostContainer';
+import { colors } from '../config/colors';
 
 const FeedScreen = ({navigation}) => {
   const {user} = useContext(UserContext);
@@ -60,7 +61,7 @@ const FeedScreen = ({navigation}) => {
           height: 50,
           width: 50,
           borderRadius: 35,
-          backgroundColor: 'green',
+          backgroundColor: colors.primary,
           position: 'absolute',
           right: 15,
           bottom: 15,
