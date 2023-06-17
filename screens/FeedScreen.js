@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {retrievePosts} from '../config/api';
 import PostContainer from '../components/PostContainer';
 
-const FeedScreen = () => {
+const FeedScreen = ({navigation}) => {
   const {user} = useContext(UserContext);
   const [posts, setPosts] = useState();
   const fetchAllPosts = async () => {
@@ -32,7 +32,11 @@ const FeedScreen = () => {
 
   useEffect(() => {
     fetchAllPosts();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchAllPosts();
+    });
+    return unsubscribe;
+  }, [navigation]);
   return (
     <View style={{flex: 1}}>
       {posts ? (
@@ -45,7 +49,8 @@ const FeedScreen = () => {
         <Text>Nothing to show</Text>
       )}
       <TouchableOpacity
-      activeOpacity={0.8}
+        onPress={() => navigation.navigate('PostContentScreen')}
+        activeOpacity={0.8}
         style={{
           height: 50,
           width: 50,
@@ -56,7 +61,6 @@ const FeedScreen = () => {
           bottom: 15,
           justifyContent: 'center',
           alignItems: 'center',
-          
         }}>
         <Text style={{fontSize: 30, color: '#fff'}}>+</Text>
       </TouchableOpacity>
