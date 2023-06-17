@@ -43,7 +43,12 @@ const FeedScreen = ({navigation}) => {
         <FlatList
           data={posts}
           keyExtractor={posts => posts._id}
-          renderItem={({item}) => <PostContainer item={item} />}
+          renderItem={({item}) => (
+            <PostContainer
+              item={item}
+              onPress={() => navigation.navigate('FeedDetailScreen')}
+            />
+          )}
         />
       ) : (
         <Text>Nothing to show</Text>

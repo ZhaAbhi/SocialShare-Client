@@ -1,5 +1,5 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeStackNavigator from './HomeStackNavigator';
+import HomeScreen from '../screens/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -9,7 +9,7 @@ const AuthenticationNavigator = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Tab.Screen name="Home" component={HomeStackNavigator} />
+      <Tab.Screen name="Home" component={HomeScreen} />
     </Tab.Navigator>
   );
 };

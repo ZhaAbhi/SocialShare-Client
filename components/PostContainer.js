@@ -5,12 +5,13 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AppIcon from './AppIcon';
 import moment from 'moment';
 
-const PostContainer = ({item}) => {
+const PostContainer = ({item, onPress}) => {
   const {_id, content, createdAt, postedBy} = item;
   const firstName = postedBy.email.match(/^(.*)@/)?.[1];
   const postDate = moment(createdAt).fromNow(true);
   return (
     <Pressable
+      onPress={onPress}
       style={{
         flexDirection: 'row',
         padding: 10,
