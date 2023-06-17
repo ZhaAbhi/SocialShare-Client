@@ -3,10 +3,12 @@ import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AppIcon from './AppIcon';
+import moment from 'moment';
 
 const PostContainer = ({item}) => {
   const {_id, content, createdAt, postedBy} = item;
   const firstName = postedBy.email.match(/^(.*)@/)?.[1];
+  const postDate = moment(createdAt).fromNow(true);
   return (
     <Pressable
       style={{
@@ -35,7 +37,9 @@ const PostContainer = ({item}) => {
             }}>
             @{postedBy.username}
           </Text>
-          <Text style={{marginLeft: 10, fontSize: 12, color: 'grey'}}>•2h</Text>
+          <Text style={{marginLeft: 10, fontSize: 12, color: 'grey'}}>
+            • {postDate}
+          </Text>
           <Entypo
             name="dots-three-horizontal"
             size={15}
