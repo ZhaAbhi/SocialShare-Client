@@ -40,6 +40,8 @@ const styles = StyleSheet.create({
   },
   greetText: {
     marginLeft: 5,
+    color:'#000',
+    fontFamily:'Poppins-SemiBold'
   },
 });
 

@@ -23,7 +23,7 @@ const PostContentScreen = ({navigation}) => {
           borderBottomWidth: StyleSheet.hairlineWidth,
         }}>
         <Pressable onPress={() => navigation.goBack()}>
-          <Text style={{fontSize: 20}}>X</Text>
+          <Text style={{fontSize: 20, color: '#000'}}>X</Text>
         </Pressable>
         <TouchableOpacity
           activeOpacity={0.8}
@@ -76,6 +76,7 @@ const PostContentScreen = ({navigation}) => {
         </View>
         <View style={{marginLeft: 15}}>
           <TextInput
+            textAlignVertical="top"
             multiline={true}
             autoFocus={true}
             style={{height: '70%', padding: 5}}

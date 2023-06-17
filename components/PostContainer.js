@@ -25,7 +25,11 @@ const PostContainer = ({item, onPress}) => {
       />
       <View style={{flex: 1, marginLeft: 5}}>
         <View
-          style={{flexDirection: 'row', alignItems: 'center', marginBottom: 3}}>
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 3,
+          }}>
           <Text style={{fontFamily: 'Poppins-semiBold', color: '#000'}}>
             {firstName}
           </Text>
@@ -38,7 +42,13 @@ const PostContainer = ({item, onPress}) => {
             }}>
             @{postedBy.username}
           </Text>
-          <Text style={{marginLeft: 10, fontSize: 12, color: 'grey'}}>
+          <Text
+            style={{
+              marginLeft: 10,
+              fontSize: 12.5,
+              color: 'grey',
+              fontFamily: 'Poppins-Light',
+            }}>
             • {postDate}
           </Text>
           <Entypo
