@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -15,8 +15,18 @@ import {
 import {colors} from '../config/colors';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import CameraIcon from 'react-native-vector-icons/Entypo';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const PostContentScreen = ({navigation}) => {
+  const [imageUpload, setImageUpload] = useState();
+  const [textCount, setTextCount] = useState(0);
+
+  const handleImageUpload = async () => {
+    const result = await launchImageLibrary({mediaType: 'photo'});
+    if (result) {
+      setImageUpload(result);
+    }
+  };
   return (
     <KeyboardAvoidingView
       style={{flex: 1}}
@@ -79,6 +89,7 @@ const PostContentScreen = ({navigation}) => {
               </View>
               <View style={{marginTop: 10, marginLeft: 15}}>
                 <TextInput
+                  onChangeText={text => setTextCount(text.length)}
                   autoFocus={true}
                   textAlignVertical="Top"
                   multiline={true}
@@ -96,6 +107,7 @@ const PostContentScreen = ({navigation}) => {
             }}>
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity
+                onPress={handleImageUpload}
                 style={{
                   height: 80,
                   width: 80,
@@ -108,22 +120,42 @@ const PostContentScreen = ({navigation}) => {
                 <CameraIcon name="camera" size={50} color="#000" />
               </TouchableOpacity>
               <TouchableOpacity
+                onPress={() => setImageUpload(null)}
                 style={{
                   height: 80,
                   width: 80,
-                  backgroundColor: 'grey',
                   borderRadius: 10,
                 }}>
-                <Image
-                  source={loadingImage}
-                  style={{
-                    height: 80,
-                    width: 80,
-                    borderRadius: 10,
-                    position: 'absolute',
-                    resizeMode: 'cover',
-                  }}
-                />
+                {imageUpload && (
+                  <View>
+                    <Image
+                      source={{uri: imageUpload.assets[0].uri}}
+                      style={{
+                        height: 80,
+                        width: 80,
+                        borderRadius: 10,
+                        position: 'absolute',
+                        resizeMode: 'cover',
+                      }}
+                    />
+                    <Pressable
+                      onPress={() => setImageUpload(null)}
+                      style={{
+                        backgroundColor: 'black',
+                        position: 'absolute',
+                        right: -5,
+                        top: -10,
+                        padding: 3,
+                        borderRadius: 20,
+                        height: 20,
+                        width: 20,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Text style={{fontWeight: 'bold', color: '#fff'}}>X</Text>
+                    </Pressable>
+                  </View>
+                )}
               </TouchableOpacity>
             </View>
             <View
@@ -131,12 +163,14 @@ const PostContentScreen = ({navigation}) => {
                 height: 35,
                 width: 35,
                 borderWidth: 1,
-                borderColor: 'red',
+                borderColor: textCount == 300 ? 'red' : colors.primary,
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: 18,
               }}>
-              <Text>200</Text>
+              <Text style={{color: textCount == 300 ? 'red' : colors.primary}}>
+                {textCount}
+              </Text>
             </View>
           </View>
         </View>
