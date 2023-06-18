@@ -5,7 +5,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {retrievePosts} from '../config/api';
 import PostContainer from '../components/PostContainer';
-import { colors } from '../config/colors';
+import {colors} from '../config/colors';
+import FloatingButton from '../components/FloatingButton';
 
 const FeedScreen = ({navigation}) => {
   const {user} = useContext(UserContext);
@@ -54,22 +55,9 @@ const FeedScreen = ({navigation}) => {
       ) : (
         <Text>Nothing to show</Text>
       )}
-      <TouchableOpacity
+      <FloatingButton
         onPress={() => navigation.navigate('PostContentScreen')}
-        activeOpacity={0.8}
-        style={{
-          height: 50,
-          width: 50,
-          borderRadius: 35,
-          backgroundColor: colors.primary,
-          position: 'absolute',
-          right: 15,
-          bottom: 15,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text style={{fontSize: 30, color: '#fff'}}>+</Text>
-      </TouchableOpacity>
+      />
     </View>
   );
 };
