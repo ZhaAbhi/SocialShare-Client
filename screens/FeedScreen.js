@@ -5,11 +5,9 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {retrievePosts} from '../config/api';
 import PostContainer from '../components/PostContainer';
-import {colors} from '../config/colors';
 import FloatingButton from '../components/FloatingButton';
 
 const FeedScreen = ({navigation}) => {
-  const {user} = useContext(UserContext);
   const [posts, setPosts] = useState();
   const fetchAllPosts = async () => {
     const accessToken = await AsyncStorage.getItem('accessToken');
