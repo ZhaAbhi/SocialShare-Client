@@ -1,6 +1,5 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {View, Text, Alert, FlatList, TouchableOpacity} from 'react-native';
-import UserContext from '../context/UserContext';
+import React, {useEffect, useState} from 'react';
+import {View, Text, Alert, FlatList} from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {retrievePosts} from '../config/api';
