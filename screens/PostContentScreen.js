@@ -19,7 +19,9 @@ import {launchImageLibrary} from 'react-native-image-picker';
 
 const PostContentScreen = ({navigation}) => {
   const [imageUpload, setImageUpload] = useState();
-  const [textCount, setTextCount] = useState(0);
+  const [postText, setPostText] = useState();
+
+  const postTextLength = postText?.length || 0;
 
   const handleImageUpload = async () => {
     const result = await launchImageLibrary({mediaType: 'photo'});
@@ -54,7 +56,7 @@ const PostContentScreen = ({navigation}) => {
               </View>
               <View style={styles.textInputContainer}>
                 <TextInput
-                  onChangeText={text => setTextCount(text.length)}
+                  onChangeText={text => setPostText(text)}
                   autoFocus={true}
                   textAlignVertical="Top"
                   multiline={true}
@@ -93,11 +95,14 @@ const PostContentScreen = ({navigation}) => {
               style={[
                 styles.textCountBox,
                 {
-                  borderColor: textCount == 300 ? 'red' : colors.primary,
+                  borderColor: postTextLength == 300 ? 'red' : colors.primary,
                 },
               ]}>
-              <Text style={{color: textCount == 300 ? 'red' : colors.primary}}>
-                {textCount}
+              <Text
+                style={{
+                  color: postTextLength == 300 ? 'red' : colors.primary,
+                }}>
+                {postTextLength}
               </Text>
             </View>
           </View>
