@@ -11,47 +11,13 @@ const PostContainer = ({item, onPress}) => {
   const firstName = postedBy.email.match(/^(.*)@/)?.[1];
   const postDate = moment(createdAt).fromNow(true);
   return (
-    <Pressable
-      onPress={onPress}
-      style={{
-        flexDirection: 'row',
-        padding: 10,
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderColor: 'lightgrey',
-        backgroundColor: 'white',
-      }}>
-      <Image
-        source={loadingImage}
-        style={{width: 50, height: 50, borderRadius: 50}}
-      />
-      <View style={{marginLeft: 10, flex: 1}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 3,
-          }}>
-          <Text style={{fontFamily: 'Poppins-semiBold', color: '#000'}}>
-            {firstName}
-          </Text>
-          <Text
-            style={{
-              marginLeft: 3,
-              fontFamily: 'Poppins-Light',
-              color: 'grey',
-              fontSize: 12.5,
-            }}>
-            @{postedBy.username}
-          </Text>
-          <Text
-            style={{
-              marginLeft: 10,
-              fontSize: 12.5,
-              color: 'grey',
-              fontFamily: 'Poppins-Light',
-            }}>
-            • {postDate}
-          </Text>
+    <Pressable onPress={onPress} style={styles.container}>
+      <Image source={loadingImage} style={styles.avatar} />
+      <View style={styles.inner}>
+        <View style={styles.postedByContainer}>
+          <Text style={styles.firstName}>{firstName}</Text>
+          <Text style={styles.username}>@{postedBy.username}</Text>
+          <Text style={styles.postDate}>• {postDate}</Text>
           <Entypo
             name="dots-three-horizontal"
             size={15}
@@ -59,36 +25,16 @@ const PostContainer = ({item, onPress}) => {
             style={{marginLeft: 'auto'}}
           />
         </View>
-        {content !== '' && (
-          <Text
-            style={{
-              fontFamily: 'Poppins-Regular',
-              color: '#000',
-              lineHeight: 20,
-            }}>
-            {content}
-          </Text>
-        )}
+        {content !== '' && <Text style={styles.contentText}>{content}</Text>}
         {postImage && (
           <Image
             source={{
               uri: `${displayImage}/${postImage}`,
             }}
-            style={{
-              width: '100%',
-              aspectRatio: 16 / 9,
-              marginVertical: 10,
-              borderRadius: 15,
-            }}
+            style={styles.postedImage}
           />
         )}
-
-        <View
-          style={{
-            marginTop: 10,
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-          }}>
+        <View style={styles.iconContainer}>
           <AppIcon iconName="heart" />
           <AppIcon iconName="retweet" />
           <AppIcon iconName="comment" />
@@ -98,5 +44,61 @@ const PostContainer = ({item, onPress}) => {
     </Pressable>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    padding: 10,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: 'lightgrey',
+    backgroundColor: 'white',
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+  },
+  inner: {
+    marginLeft: 10,
+    flex: 1,
+  },
+  postedByContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 3,
+  },
+  firstName: {
+    fontFamily: 'Poppins-semiBold',
+    color: '#000',
+  },
+  username: {
+    marginLeft: 3,
+    fontFamily: 'Poppins-Light',
+    color: 'grey',
+    fontSize: 12.5,
+  },
+  postDate: {
+    marginLeft: 10,
+    fontSize: 12.5,
+    color: 'grey',
+    fontFamily: 'Poppins-Light',
+  },
+  contentText: {
+    fontFamily: 'Poppins-Regular',
+    color: '#000',
+    lineHeight: 20,
+  },
+  postedImage: {
+    width: '100%',
+    aspectRatio: 16 / 9,
+    marginVertical: 10,
+    borderRadius: 15,
+  },
+  iconContainer: {
+    marginTop: 10,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+});
 
 export default PostContainer;
