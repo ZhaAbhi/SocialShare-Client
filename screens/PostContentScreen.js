@@ -11,17 +11,23 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from 'react-native';
 import {colors} from '../config/colors';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import CameraIcon from 'react-native-vector-icons/Entypo';
 import {launchImageLibrary} from 'react-native-image-picker';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {createPost} from '../config/api';
 
 const PostContentScreen = ({navigation}) => {
   const [imageUpload, setImageUpload] = useState();
-  const [postText, setPostText] = useState();
+  const [postText, setPostText] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const postTextLength = postText?.length || 0;
+  const disablePost = postTextLength === 0 && !imageUpload ? true : false;
 
   const handleImageUpload = async () => {
     const result = await launchImageLibrary({mediaType: 'photo'});
@@ -29,9 +35,58 @@ const PostContentScreen = ({navigation}) => {
       setImageUpload(result);
     }
   };
+
+  const handlePost = async () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('content', postText);
+    imageUpload &&
+      formData.append('PostImage', {
+        uri: imageUpload.assets[0].uri,
+        type: imageUpload.assets[0].type,
+        name: imageUpload.assets[0].fileName,
+      });
+
+    try {
+      const token = await AsyncStorage.getItem('accessToken');
+      await axios({
+        url: createPost,
+        method: 'post',
+        data: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => {
+          if (res.status === 201) {
+            setPostText('');
+            setImageUpload();
+            setLoading(false);
+            Alert.alert(
+              'Congratulations!',
+              'You have successfully posted you content',
+              [{text: 'OK', onPress: () => navigation.navigate('Feed')}],
+            );
+          }
+        })
+        .catch(error => {
+          setLoading(false);
+          Alert.alert(
+            'Oops!!!',
+            'Something went wrong! Please try posting again!',
+          );
+        });
+    } catch (error) {
+      setLoading(false);
+      Alert.alert('Oops!!!', 'Something went wrong! Please try posting again!');
+    }
+  };
   return (
     <KeyboardAvoidingView
-      style={{flex: 1}}
+      style={[
+        {flex: 1},
+        loading ? {backgroundColor: 'grey', opacity: 0.4} : '',
+      ]}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 30 : 0}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -42,7 +97,10 @@ const PostContentScreen = ({navigation}) => {
                 <Text style={styles.closeX}>X</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.postButton}>
+              <TouchableOpacity
+                style={[styles.postButton, disablePost ? {opacity: 0.4} : '']}
+                onPress={handlePost}
+                disabled={disablePost}>
                 <Text style={styles.postButtonText}>Post</Text>
               </TouchableOpacity>
             </View>

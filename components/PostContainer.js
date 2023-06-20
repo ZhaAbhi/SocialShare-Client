@@ -4,9 +4,10 @@ import loadingImage from '../assets/images/loadingImage.jpeg';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AppIcon from './AppIcon';
 import moment from 'moment';
+import {displayImage} from '../config/api';
 
 const PostContainer = ({item, onPress}) => {
-  const {_id, content, createdAt, postedBy} = item;
+  const {_id, content, createdAt, postedBy, postImage} = item;
   const firstName = postedBy.email.match(/^(.*)@/)?.[1];
   const postDate = moment(createdAt).fromNow(true);
   return (
@@ -21,9 +22,9 @@ const PostContainer = ({item, onPress}) => {
       }}>
       <Image
         source={loadingImage}
-        style={{height: 50, width: 50, borderRadius: 25}}
+        style={{width: 50, height: 50, borderRadius: 50}}
       />
-      <View style={{flex: 1, marginLeft: 5}}>
+      <View style={{marginLeft: 10, flex: 1}}>
         <View
           style={{
             flexDirection: 'row',
@@ -58,13 +59,33 @@ const PostContainer = ({item, onPress}) => {
             style={{marginLeft: 'auto'}}
           />
         </View>
-        <Text style={{fontFamily: 'Poppins-Regular', color: '#000'}}>
-          {content}This si smuy test to test the cobntest ius bsicubke siudyide
-          the container or noit
-        </Text>
+        {content !== '' && (
+          <Text
+            style={{
+              fontFamily: 'Poppins-Regular',
+              color: '#000',
+              lineHeight: 20,
+            }}>
+            {content}
+          </Text>
+        )}
+        {postImage && (
+          <Image
+            source={{
+              uri: `${displayImage}/${postImage}`,
+            }}
+            style={{
+              width: '100%',
+              aspectRatio: 16 / 9,
+              marginVertical: 10,
+              borderRadius: 15,
+            }}
+          />
+        )}
+
         <View
           style={{
-            marginTop: 20,
+            marginTop: 10,
             justifyContent: 'space-between',
             flexDirection: 'row',
           }}>
