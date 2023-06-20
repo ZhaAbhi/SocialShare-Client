@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
+} from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AppIcon from './AppIcon';
@@ -10,6 +17,7 @@ const PostContainer = ({item, onPress}) => {
   const {_id, content, createdAt, postedBy, postImage} = item;
   const firstName = postedBy.email.match(/^(.*)@/)?.[1];
   const postDate = moment(createdAt).fromNow(true);
+
   return (
     <Pressable onPress={onPress} style={styles.container}>
       <Image source={loadingImage} style={styles.avatar} />
@@ -27,12 +35,14 @@ const PostContainer = ({item, onPress}) => {
         </View>
         {content !== '' && <Text style={styles.contentText}>{content}</Text>}
         {postImage && (
-          <Image
-            source={{
-              uri: `${displayImage}/${postImage}`,
-            }}
-            style={styles.postedImage}
-          />
+          <TouchableOpacity>
+            <Image
+              source={{
+                uri: `${displayImage}/${postImage}`,
+              }}
+              style={styles.postedImage}
+            />
+          </TouchableOpacity>
         )}
         <View style={styles.iconContainer}>
           <AppIcon iconName="heart" />
