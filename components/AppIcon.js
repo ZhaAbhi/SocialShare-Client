@@ -2,10 +2,10 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
 
-const AppIcon = ({iconName}) => {
+const AppIcon = ({iconName, onPress, style}) => {
   return (
-    <TouchableOpacity>
-      <EvilIcon name={iconName} size={20} color="grey" />
+    <TouchableOpacity onPress={onPress}>
+      <EvilIcon name={iconName} size={20} color="grey" style={style} />
     </TouchableOpacity>
   );
 };

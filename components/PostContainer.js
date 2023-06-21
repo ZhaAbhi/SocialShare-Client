@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -6,17 +6,58 @@ import {
   StyleSheet,
   Pressable,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AppIcon from './AppIcon';
 import moment from 'moment';
-import {displayImage} from '../config/api';
+import {displayImage, likeContent} from '../config/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import UserContext from '../context/UserContext';
 
 const PostContainer = ({item, onPress}) => {
-  const {_id, content, createdAt, postedBy, postImage} = item;
+  const {user} = useContext(UserContext);
+  const [likedPost, setLikedPost] = useState();
+  const {_id, content, createdAt, postedBy, postImage, likes} = item;
   const firstName = postedBy.email.match(/^(.*)@/)?.[1];
   const postDate = moment(createdAt).fromNow(true);
+
+  const checkPostLiked = () => {
+    if (likes?.includes(user._id)) {
+      setLikedPost(true);
+    } else {
+      setLikedPost(false);
+    }
+  };
+
+  useEffect(() => {
+    checkPostLiked();
+  }, []);
+
+  const handleLike = async postId => {
+    const token = await AsyncStorage.getItem('accessToken');
+    if (token) {
+      try {
+        await axios({
+          method: 'put',
+          url: `${likeContent}/${postId}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then(res => {
+          if (res.data.includes(user._id)) {
+            setLikedPost(true);
+          } else {
+            setLikedPost(false);
+          }
+        });
+      } catch (error) {
+        return Alert.alert('Something went wrong, Try Again!!');
+      }
+    }
+  };
 
   return (
     <Pressable onPress={onPress} style={styles.container}>
@@ -45,7 +86,11 @@ const PostContainer = ({item, onPress}) => {
           </TouchableOpacity>
         )}
         <View style={styles.iconContainer}>
-          <AppIcon iconName="heart" />
+          <AppIcon
+            iconName="heart"
+            style={{color: likedPost ? 'red' : 'grey'}}
+            onPress={() => handleLike(_id)}
+          />
           <AppIcon iconName="retweet" />
           <AppIcon iconName="comment" />
           <AppIcon iconName="share-google" />
