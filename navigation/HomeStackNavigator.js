@@ -19,7 +19,12 @@ const HomeStackNavigator = () => {
         options={{...TransitionPresets.ModalPresentationIOS}}
       />
       <Stack.Screen
-        options={{...TransitionPresets.SlideFromRightIOS}}
+        options={{
+          ...TransitionPresets.SlideFromRightIOS,
+          headerShown: true,
+          headerTitle: 'Post Detail',
+          headerBackTitleVisible: false,
+        }}
         name="FeedDetailScreen"
         component={FeedDetailScreen}
       />

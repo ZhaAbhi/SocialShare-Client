@@ -45,7 +45,9 @@ const FeedScreen = ({navigation}) => {
           renderItem={({item}) => (
             <PostContainer
               item={item}
-              onPress={() => navigation.navigate('FeedDetailScreen')}
+              onPress={() =>
+                navigation.navigate('FeedDetailScreen', {postId: item._id})
+              }
             />
           )}
         />
