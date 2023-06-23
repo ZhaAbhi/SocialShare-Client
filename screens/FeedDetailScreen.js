@@ -57,22 +57,65 @@ const FeedDetailScreen = ({navigation, route}) => {
   }, [navigation]);
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-      }}>
-      <Pressable onPress={Keyboard.dismiss}>
-        <View>
-          <Text>Hello</Text>
-        </View>
-      </Pressable>
+    <>
+      <ScrollView
+        style={{
+          flex: 1,
+        }}>
+        <Pressable onPress={Keyboard.dismiss}>
+          <ScrollView>
+            <View style={{padding: 5}}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Image
+                  source={loadingImage}
+                  style={{height: 40, width: 40, borderRadius: 20}}
+                />
+                <View style={{marginLeft: 5}}>
+                  <Text>Name</Text>
+                  <Text>@Username</Text>
+                </View>
+              </View>
+              <View>
+                <Text>This is my content</Text>
+                <Image
+                  source={loadingImage}
+                  style={{height: 200, width: '100%'}}
+                />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginTop: 15,
+                    justifyContent: 'space-between',
+                  }}>
+                  <AppIcon iconName="heart" />
+                  <AppIcon iconName="retweet" />
+                  <AppIcon iconName="comment" />
+                  <AppIcon iconName="share-google" />
+                </View>
+              </View>
+              <View>
+                <Text style={{marginBottom: 40}}>This is my comment</Text>
+                <Text style={{marginBottom: 40}}>This is my comment</Text>
+                <Text style={{marginBottom: 40}}>This is my comment</Text>
+                <Text style={{marginBottom: 40}}>This is my comment</Text>
+                <Text style={{marginBottom: 40}}>This is my comment</Text>
+                <Text style={{marginBottom: 40}}>This is my comment</Text>
+                <Text style={{marginBottom: 40}}>This is my comment</Text>
+                <Text style={{marginBottom: 40}}>This is my comment</Text>
+                <Text style={{marginBottom: 40}}>This is my comment</Text>
+                <Text style={{marginBottom: 40}}>This is my comment</Text>
+                <Text style={{marginBottom: 40}}>This is my comment</Text>
+              </View>
+            </View>
+          </ScrollView>
+        </Pressable>
+      </ScrollView>
       <KeyboardAvoidingView
-        style={{flex: 1, justifyContent: 'flex-end', backgroundColor:'red'}}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={60}>
+        keyboardVerticalOffset={70}>
         <TextInput style={{borderWidth: 1}} />
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </>
   );
 };
 
