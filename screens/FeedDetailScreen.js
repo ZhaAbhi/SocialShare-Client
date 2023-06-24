@@ -58,62 +58,62 @@ const FeedDetailScreen = ({navigation, route}) => {
 
   return (
     <>
-      <ScrollView
-        style={{
-          flex: 1,
-        }}>
-        <Pressable onPress={Keyboard.dismiss}>
-          <ScrollView>
-            <View style={{padding: 5}}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Image
-                  source={loadingImage}
-                  style={{height: 40, width: 40, borderRadius: 20}}
-                />
-                <View style={{marginLeft: 5}}>
-                  <Text>Name</Text>
-                  <Text>@Username</Text>
-                </View>
-              </View>
-              <View>
-                <Text>This is my content</Text>
-                <Image
-                  source={loadingImage}
-                  style={{height: 200, width: '100%'}}
-                />
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    marginTop: 15,
-                    justifyContent: 'space-between',
-                  }}>
-                  <AppIcon iconName="heart" />
-                  <AppIcon iconName="retweet" />
-                  <AppIcon iconName="comment" />
-                  <AppIcon iconName="share-google" />
-                </View>
-              </View>
-              <View>
-                <Text style={{marginBottom: 40}}>This is my comment</Text>
-                <Text style={{marginBottom: 40}}>This is my comment</Text>
-                <Text style={{marginBottom: 40}}>This is my comment</Text>
-                <Text style={{marginBottom: 40}}>This is my comment</Text>
-                <Text style={{marginBottom: 40}}>This is my comment</Text>
-                <Text style={{marginBottom: 40}}>This is my comment</Text>
-                <Text style={{marginBottom: 40}}>This is my comment</Text>
-                <Text style={{marginBottom: 40}}>This is my comment</Text>
-                <Text style={{marginBottom: 40}}>This is my comment</Text>
-                <Text style={{marginBottom: 40}}>This is my comment</Text>
-                <Text style={{marginBottom: 40}}>This is my comment</Text>
-              </View>
-            </View>
-          </ScrollView>
-        </Pressable>
+      <ScrollView style={{flex: 1, backgroundColor: 'red', padding: 5}}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Image
+            source={loadingImage}
+            style={{height: 40, width: 40, borderRadius: 20}}
+          />
+          <View style={{marginLeft: 5}}>
+            <Text>Name</Text>
+            <Text>Username</Text>
+          </View>
+        </View>
+
+        <Text style={{marginTop: 5}}>This is content and the description</Text>
+        <Image
+          source={loadingImage}
+          style={{height: 200, width: '100%', borderRadius: 20, marginTop: 5}}
+        />
+        <View style={{marginTop: 10}}>
+          <Text>Posted on: 3 days ago</Text>
+        </View>
+        <View
+          style={{
+            marginTop: 8,
+            borderBottomWidth: StyleSheet.hairlineWidth,
+          }}></View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 15,
+          }}>
+          <AppIcon iconName="heart" />
+          <AppIcon iconName="retweet" />
+          <AppIcon iconName="comment" />
+          <AppIcon iconName="share-google" />
+        </View>
+        <View
+          style={{
+            marginTop: 8,
+            borderBottomWidth: StyleSheet.hairlineWidth,
+          }}></View>
+        <View style={{marginTop: 5, marginBottom: 20}}>
+          {/* Render the comment on scroll view */}
+          <Text style={{marginTop: 50}}>This is comment</Text>
+          <Text style={{marginTop: 50}}>This is comment</Text>
+          <Text style={{marginTop: 50}}>This is comment</Text>
+          <Text style={{marginTop: 50}}>This is comment</Text>
+          <Text style={{marginTop: 50}}>This is comment</Text>
+        </View>
       </ScrollView>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={70}>
-        <TextInput style={{borderWidth: 1}} />
+        <View>
+          <TextInput style={{borderWidth: 1}} />
+        </View>
       </KeyboardAvoidingView>
     </>
   );
