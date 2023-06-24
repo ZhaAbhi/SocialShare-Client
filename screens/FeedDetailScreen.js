@@ -58,7 +58,7 @@ const FeedDetailScreen = ({navigation, route}) => {
 
   return (
     <>
-      <ScrollView style={{flex: 1, backgroundColor: 'red', padding: 5}}>
+      <ScrollView style={{flex: 1, padding: 5}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
             source={loadingImage}
@@ -86,7 +86,7 @@ const FeedDetailScreen = ({navigation, route}) => {
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-between',
+            justifyContent: 'space-around',
             marginTop: 15,
           }}>
           <AppIcon iconName="heart" />
@@ -99,13 +99,34 @@ const FeedDetailScreen = ({navigation, route}) => {
             marginTop: 8,
             borderBottomWidth: StyleSheet.hairlineWidth,
           }}></View>
+        <Text
+          style={{
+            fontFamily: 'Poppins-Bold',
+            marginTop: 4,
+            textDecorationLine: 'underline',
+          }}>
+          All Comments
+        </Text>
+        <View>
+          {postDetail?.commentsBy.length === 0 && (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '20%',
+              }}>
+              <Text>No comments</Text>
+            </View>
+          )}
+        </View>
         <View style={{marginTop: 5, marginBottom: 20}}>
           {/* Render the comment on scroll view */}
-          <Text style={{marginTop: 50}}>This is comment</Text>
-          <Text style={{marginTop: 50}}>This is comment</Text>
-          <Text style={{marginTop: 50}}>This is comment</Text>
-          <Text style={{marginTop: 50}}>This is comment</Text>
-          <Text style={{marginTop: 50}}>This is comment</Text>
+
+          {postDetail?.commentsBy.length > 0 &&
+            postDetail.commentsBy.map((item, i) => (
+              <CommentPost key={i} item={item} />
+            ))}
         </View>
       </ScrollView>
       <KeyboardAvoidingView
