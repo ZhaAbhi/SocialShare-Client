@@ -6088,6 +6088,11 @@
     "invariant" "^2.2.4"
     "opencollective-postinstall" "^2.0.3"
 
+"react-native-linear-gradient@^2.7.3":
+  "integrity" "sha512-iyJszlZ1Ech2c+2qV+isMvvJKyoctR9ashDkhJg1/cuSF0vQaeLV1FAYTT3qW9doxChJGxVAFfYoxotH0yi3Iw=="
+  "resolved" "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.7.3.tgz"
+  "version" "2.7.3"
+
 "react-native-pager-view@*", "react-native-pager-view@^6.2.0", "react-native-pager-view@>= 4.0.0":
   "integrity" "sha512-pf9OnL/Tkr+5s4Gjmsn7xh91PtJLDa6qxYa/bmtUhd/+s4cQdWQ8DIFoOFghwZIHHHwVdWtoXkp6HtpjN+r20g=="
   "resolved" "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-6.2.0.tgz"
