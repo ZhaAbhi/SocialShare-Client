@@ -14,7 +14,7 @@ import BackIcon from 'react-native-vector-icons/Ionicons';
 const LoginScreen = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View
+      <TouchableOpacity
         style={{
           borderRadius: 60,
           backgroundColor: '#2d6a4f',
@@ -26,7 +26,7 @@ const LoginScreen = () => {
           marginTop: 10,
         }}>
         <BackIcon name="arrow-back" size={25} color="#fff" />
-      </View>
+      </TouchableOpacity>
       <Image
         source={SocialShare}
         style={{height: 200, width: 200, alignSelf: 'center', top: '-10%'}}
@@ -95,14 +95,16 @@ const LoginScreen = () => {
               }}>
               Don't have an account?
             </Text>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontFamily: 'Poppins-SemiBold',
-                color: '#2a9134',
-              }}>
-              Create Account
-            </Text>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontFamily: 'Poppins-SemiBold',
+                  color: '#2a9134',
+                }}>
+                Create Account
+              </Text>
+            </TouchableOpacity>
           </View>
           <Text style={{textAlign: 'center', marginTop: 10, color: '#000'}}>
             --------------------or--------------------
