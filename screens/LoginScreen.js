@@ -1,6 +1,7 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import UnAuthHeader from '../components/UnAuthHeader';
+import AppTextInput from '../components/AppTextInput';
 
 const LoginScreen = () => {
   return (
@@ -9,6 +10,10 @@ const LoginScreen = () => {
         greetOne="Please provide your login credentials"
         greetTwo="to continue with social share"
       />
+      <View>
+        <AppTextInput placeholder="Email" />
+        <AppTextInput placeholder="Password" />
+      </View>
     </SafeAreaView>
   );
 };
