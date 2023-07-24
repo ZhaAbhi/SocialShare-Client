@@ -13,6 +13,10 @@ import FriendsScreen from '../screens/FriendsScreen';
 
 const Tab = createBottomTabNavigator();
 
+const activeColor = focused => {
+  return focused ? colors.black : colors.darkgray;
+};
+
 const BottomTabNavigation = () => {
   return (
     <Tab.Navigator
@@ -25,11 +29,7 @@ const BottomTabNavigation = () => {
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({size, focused}) => (
-            <HomeIcon
-              name="home"
-              size={size}
-              color={focused ? colors.black : colors.darkgray}
-            />
+            <HomeIcon name="home" size={size} color={activeColor(focused)} />
           ),
         }}
       />
@@ -39,11 +39,7 @@ const BottomTabNavigation = () => {
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({focused}) => (
-            <FriendsIcon
-              name="users"
-              size={20}
-              color={focused ? colors.black : colors.darkgray}
-            />
+            <FriendsIcon name="users" size={20} color={activeColor(focused)} />
           ),
         }}
       />
@@ -56,7 +52,7 @@ const BottomTabNavigation = () => {
             <SearchIcon
               name="search"
               size={size}
-              color={focused ? colors.black : colors.darkgray}
+              color={activeColor(focused)}
             />
           ),
         }}
@@ -70,7 +66,7 @@ const BottomTabNavigation = () => {
             <NotificationIcon
               name="notifications"
               size={20}
-              color={focused ? colors.black : colors.darkgray}
+              color={activeColor(focused)}
             />
           ),
         }}
@@ -84,7 +80,7 @@ const BottomTabNavigation = () => {
             <MessageIcon
               name="message"
               size={size}
-              color={focused ? colors.black : colors.darkgray}
+              color={activeColor(focused)}
             />
           ),
         }}
