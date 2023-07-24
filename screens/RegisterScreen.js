@@ -24,7 +24,6 @@ const RegisterScreen = ({navigation}) => {
           subgreet="A platform to share and connect"
           info="Register"
         />
-
         <AppTextInput placeholder="Username" />
         <AppTextInput placeholder="Email" />
         <AppTextInput placeholder="Password" />
