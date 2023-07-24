@@ -13,7 +13,7 @@ import UnAuthHeader from '../components/UnAuthHeader';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   return (
     <ScrollView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -33,7 +33,7 @@ const LoginScreen = () => {
       <View style={styles.footer}>
         <View style={styles.createAccount}>
           <Text style={styles.footerText}>Don't have an account?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
             <Text style={styles.footerText}>Register</Text>
           </TouchableOpacity>
         </View>

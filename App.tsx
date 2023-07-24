@@ -1,10 +1,13 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
-import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import UnAuthNavigation from './navigation/UnAuthNavigation';
 
 const App = () => {
-  return <RegisterScreen />;
+  return (
+    <NavigationContainer>
+      <UnAuthNavigation />
+    </NavigationContainer>
+  );
 };
 
 export default App;

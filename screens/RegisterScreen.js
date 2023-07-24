@@ -13,7 +13,7 @@ import {colors} from '../utils/colors';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 
-const RegisterScreen = () => {
+const RegisterScreen = ({navigation}) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -21,7 +21,7 @@ const RegisterScreen = () => {
       <ScrollView style={styles.inner} showsVerticalScrollIndicator={false}>
         <UnAuthHeader
           greet="Create Account!"
-          subgreet="A platform to connect and network."
+          subgreet="A platform to share and connect"
           info="Register"
         />
 
@@ -32,7 +32,7 @@ const RegisterScreen = () => {
         <AppButton title="Register" style={styles.button} />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already have an account?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text style={styles.footerText}>Login</Text>
           </TouchableOpacity>
         </View>
