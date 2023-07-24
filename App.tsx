@@ -1,10 +1,10 @@
 import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
-import WelcomeScreen from './screens/WelcomeScreen';
 import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
 
 const App = () => {
-  return <LoginScreen />;
+  return <RegisterScreen />;
 };
 
 export default App;

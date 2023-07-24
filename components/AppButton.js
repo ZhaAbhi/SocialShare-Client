@@ -1,40 +1,26 @@
 import React from 'react';
-import {Text, StyleSheet, TouchableOpacity} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import {TouchableOpacity, View, Text, StyleSheet} from 'react-native';
+import {colors} from '../utils/colors';
 
-const AppButton = ({name, style}) => {
+const AppButton = ({style, title}) => {
   return (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      style={[styles.buttonContainer, style]}>
-      <LinearGradient
-        end={{x: 0, y: 0}}
-        start={{x: 1, y: 0}}
-        colors={['#2d6a4f', '#1b4332']}
-        style={styles.buttonBackground}>
-        <Text style={styles.name}>{name}</Text>
-      </LinearGradient>
+    <TouchableOpacity style={[style, styles.button]} activeOpacity={0.8}>
+      <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
 };
-
 const styles = StyleSheet.create({
-  buttonContainer: {
-    marginBottom: 15,
-    width: '100%',
-  },
-  buttonBackground: {
-    alignItems: 'center',
-    height: 40,
-    justifyContent: 'center',
+  button: {
+    backgroundColor: colors.black,
+    height: 35,
     borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  name: {
-    color: '#fff',
-    fontFamily: 'Poppins-SemiBold',
-    fontSize: 18,
-    letterSpacing: 0.2,
+  text: {
+    color: colors.eelightgray,
+    fontFamily: 'Poppins-Medium',
+    fontSize: 17,
   },
 });
-
 export default AppButton;
