@@ -1,13 +1,23 @@
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import BottomTabNavigation from './BottomTabNavigation';
+import PostContentScreen from '../screens/PostContentScreen';
 
-const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
 const MainNavigation = () => {
   return (
-    <Drawer.Navigator screenOptions={{headerShown: false}}>
-      <Drawer.Screen name="Drawer" component={BottomTabNavigation} />
-    </Drawer.Navigator>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Group>
+        <Stack.Screen name="Main" component={BottomTabNavigation} />
+      </Stack.Group>
+      <Stack.Group>
+        <Stack.Screen
+          name="PostContent"
+          component={PostContentScreen}
+          options={{presentation: 'containedModal'}}
+        />
+      </Stack.Group>
+    </Stack.Navigator>
   );
 };
 

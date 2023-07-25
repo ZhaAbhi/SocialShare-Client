@@ -2,9 +2,12 @@ import React from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {colors} from '../utils/colors';
 
-const PostCircleButton = () => {
+const PostCircleButton = ({onPress}) => {
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.8}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={0.8}
+      onPress={onPress}>
       <Text style={styles.plus}>+</Text>
     </TouchableOpacity>
   );

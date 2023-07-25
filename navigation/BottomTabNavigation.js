@@ -1,5 +1,4 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeStackNavigation from './HomeStackNavigation';
 import HomeIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SearchIcon from 'react-native-vector-icons/EvilIcons';
 import NotificationIcon from 'react-native-vector-icons/Ionicons';
@@ -10,6 +9,7 @@ import SearchScreen from '../screens/SearchScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import MessagesScreen from '../screens/MessagesScreen';
 import FriendsScreen from '../screens/FriendsScreen';
+import HomeScreen from '../screens/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +24,7 @@ const BottomTabNavigation = () => {
       }}>
       <Tab.Screen
         name="Home"
-        component={HomeStackNavigation}
+        component={HomeScreen}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({size, focused}) => (

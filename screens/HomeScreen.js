@@ -31,7 +31,7 @@ const HomeScreen = ({navigation}) => {
       {/* Flatlist for feed screen */}
       <PostCard />
       {/* Post button */}
-      <PostCircleButton />
+      <PostCircleButton onPress={() => navigation.navigate('PostContent')} />
     </SafeAreaView>
   );
 };
