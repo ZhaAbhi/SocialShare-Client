@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, View, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {colors} from '../utils/colors';
 
 const PostCircleButton = () => {
@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5,
   },
   plus: {
