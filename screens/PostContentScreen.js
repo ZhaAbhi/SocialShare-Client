@@ -1,10 +1,11 @@
-import React from 'react';
-import {Text, SafeAreaView} from 'react-native';
+import React, {useEffect, useLayoutEffect} from 'react';
+import {Text, SafeAreaView, View} from 'react-native';
+import PostContentHeader from '../components/PostContentHeader';
 
-const PostContentScreen = () => {
+const PostContentScreen = ({navigation}) => {
   return (
     <SafeAreaView>
-      <Text>This is post content screen</Text>
+      <PostContentHeader onPressClose={() => navigation.goBack()} />
     </SafeAreaView>
   );
 };
