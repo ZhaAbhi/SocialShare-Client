@@ -11,12 +11,14 @@ import Avatar from '../assets/images/loadingImage.jpeg';
 import {colors} from '../utils/colors';
 import SwitchMode from 'react-native-vector-icons/Entypo';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity activeOpacity={0.8}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => navigation.openDrawer()}>
           <Image source={Avatar} style={styles.avatar} />
         </TouchableOpacity>
         <Text style={styles.title}>Social Share</Text>
