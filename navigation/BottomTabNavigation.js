@@ -13,11 +13,10 @@ import FriendsScreen from '../screens/FriendsScreen';
 
 const Tab = createBottomTabNavigator();
 
-const activeColor = focused => {
-  return focused ? colors.black : colors.darkgray;
-};
-
 const BottomTabNavigation = () => {
+  const activeColor = focused => {
+    return focused ? colors.black : colors.darkgray;
+  };
   return (
     <Tab.Navigator
       screenOptions={{
