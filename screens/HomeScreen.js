@@ -10,6 +10,8 @@ import {
 import Avatar from '../assets/images/loadingImage.jpeg';
 import {colors} from '../utils/colors';
 import SwitchMode from 'react-native-vector-icons/Entypo';
+import PostCard from '../components/PostCard';
+import PostCircleButton from '../components/PostCircleButton';
 
 const HomeScreen = ({navigation}) => {
   return (
@@ -26,6 +28,10 @@ const HomeScreen = ({navigation}) => {
           <SwitchMode name="light-up" color={colors.black} size={20} />
         </TouchableOpacity>
       </View>
+      {/* Flatlist for feed screen */}
+      <PostCard />
+      {/* Post button */}
+      <PostCircleButton />
     </SafeAreaView>
   );
 };
