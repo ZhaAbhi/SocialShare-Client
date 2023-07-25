@@ -5,4 +5,5 @@ export const colors = {
   lightgray: '#AAB8C2',
   elightgray: '#E1E8ED',
   eelightgray: '#F5F8FA',
+  white: '#FDFEFF',
 };
