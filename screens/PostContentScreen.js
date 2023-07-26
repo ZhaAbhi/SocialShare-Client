@@ -1,13 +1,29 @@
-import React, {useEffect, useLayoutEffect} from 'react';
-import {Text, SafeAreaView, View} from 'react-native';
+import React from 'react';
+import {
+  KeyboardAvoidingView,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import PostContentHeader from '../components/PostContentHeader';
 
-const PostContentScreen = ({navigation}) => {
+const PostContentScreen = () => {
   return (
-    <SafeAreaView>
-      <PostContentHeader onPressClose={() => navigation.goBack()} />
-    </SafeAreaView>
+    <KeyboardAvoidingView style={styles.container}>
+      <View style={styles.inner}>
+        <PostContentHeader />
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  inner: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+});
 export default PostContentScreen;
