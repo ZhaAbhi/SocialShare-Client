@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   KeyboardAvoidingView,
   SafeAreaView,
@@ -15,12 +15,16 @@ import Avatar from '../assets/images/loadingImage.jpeg';
 import {colors} from '../utils/colors';
 
 const PostContentScreen = ({navigation}) => {
+  const [contentText, setContentText] = useState('');
   return (
     <KeyboardAvoidingView
       style={styles.mainContainer}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <SafeAreaView>
-        <PostContentHeader onPressClose={() => navigation.goBack()} />
+        <PostContentHeader
+          disabled={contentText === ''}
+          onPressClose={() => navigation.goBack()}
+        />
       </SafeAreaView>
       <View style={styles.inner}>
         <View style={styles.contentContainer}>
@@ -37,6 +41,8 @@ const PostContentScreen = ({navigation}) => {
               multiline
               placeholder="What's happening..."
               placeholderTextColor={colors.darkgray}
+              value={contentText}
+              onChangeText={text => setContentText(text)}
             />
           </View>
         </View>

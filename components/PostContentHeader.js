@@ -2,15 +2,19 @@ import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {colors} from '../utils/colors';
 
-const PostContentHeader = ({onPressClose, OnPressPost}) => {
+const PostContentHeader = ({onPressClose, OnPressPost, disabled}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onPressClose} hitSlop={10}>
         <Text style={styles.close}>X</Text>
       </TouchableOpacity>
       <TouchableOpacity
+        disabled={disabled}
         onPress={OnPressPost}
-        style={styles.postButton}
+        style={[
+          styles.postButton,
+          {backgroundColor: disabled ? colors.dimBlue : colors.blue},
+        ]}
         activeOpacity={0.8}>
         <Text style={styles.buttonText}>Post</Text>
       </TouchableOpacity>
@@ -33,7 +37,6 @@ const styles = StyleSheet.create({
   },
   postButton: {
     height: 25,
-    backgroundColor: colors.blue,
     width: '18%',
     justifyContent: 'center',
     alignItems: 'center',
