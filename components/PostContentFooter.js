@@ -9,6 +9,10 @@ const PostContentFooter = () => {
       <TouchableOpacity activeOpacity={0.8} style={styles.imagePicker}>
         <CameraIcon name="camera" size={40} color={colors.eelightgray} />
       </TouchableOpacity>
+      {/* Image upload by user */}
+      <View style={[styles.imagePicker, {marginLeft: 10}]}>
+        <CameraIcon name="camera" size={40} color={colors.eelightgray} />
+      </View>
       <View style={styles.textCount}>
         <Text style={styles.count}>250</Text>
       </View>
@@ -20,7 +24,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
   imagePicker: {
     height: 80,
@@ -38,6 +41,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: colors.blue,
     borderRadius: 50,
+    marginLeft: 'auto',
   },
   count: {
     color: colors.black,
