@@ -13,16 +13,30 @@ import PostContentHeader from '../components/PostContentHeader';
 import PostContentFooter from '../components/PostContentFooter';
 import Avatar from '../assets/images/loadingImage.jpeg';
 import {colors} from '../utils/colors';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const PostContentScreen = ({navigation}) => {
   const [contentText, setContentText] = useState('');
+  const [imagePicked, setImagePicked] = useState(null);
+
+  const pickImage = async () => {
+    await launchImageLibrary({
+      mediaType: 'photo',
+    }).then(res => {
+      if (res.didCancel) {
+        return;
+      }
+      setImagePicked(res);
+    });
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.mainContainer}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <SafeAreaView>
         <PostContentHeader
-          disabled={contentText === ''}
+          disabled={contentText === '' && imagePicked === null}
           onPressClose={() => navigation.goBack()}
         />
       </SafeAreaView>
@@ -48,7 +62,12 @@ const PostContentScreen = ({navigation}) => {
           </View>
         </View>
         <View style={styles.footer}>
-          <PostContentFooter totalTextCount={contentText.length} />
+          <PostContentFooter
+            totalTextCount={contentText.length}
+            onPressPicker={pickImage}
+            pickedImage={imagePicked}
+            onPressCross={() => setImagePicked(null)}
+          />
         </View>
       </View>
     </KeyboardAvoidingView>
