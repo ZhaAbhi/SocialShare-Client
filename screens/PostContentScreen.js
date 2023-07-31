@@ -41,13 +41,14 @@ const PostContentScreen = ({navigation}) => {
               multiline
               placeholder="What's happening..."
               placeholderTextColor={colors.darkgray}
+              maxLength={175}
               value={contentText}
               onChangeText={text => setContentText(text)}
             />
           </View>
         </View>
         <View style={styles.footer}>
-          <PostContentFooter />
+          <PostContentFooter totalTextCount={contentText.length} />
         </View>
       </View>
     </KeyboardAvoidingView>

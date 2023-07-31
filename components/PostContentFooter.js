@@ -3,7 +3,8 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CameraIcon from 'react-native-vector-icons/Entypo';
 import {colors} from '../utils/colors';
 
-const PostContentFooter = () => {
+const PostContentFooter = ({totalTextCount}) => {
+  const getMaxTextCount = totalTextCount === 175;
   return (
     <View style={styles.container}>
       <TouchableOpacity activeOpacity={0.8} style={styles.imagePicker}>
@@ -13,8 +14,14 @@ const PostContentFooter = () => {
       <View style={[styles.imagePicker, {marginLeft: 10}]}>
         <CameraIcon name="camera" size={40} color={colors.eelightgray} />
       </View>
-      <View style={styles.textCount}>
-        <Text style={styles.count}>250</Text>
+      <View
+        style={[
+          styles.textCount,
+          {borderColor: getMaxTextCount ? colors.red : colors.blue},
+        ]}>
+        <Text style={{color: getMaxTextCount ? colors.red : colors.black}}>
+          {totalTextCount}
+        </Text>
       </View>
     </View>
   );
@@ -39,12 +46,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: colors.blue,
     borderRadius: 50,
     marginLeft: 'auto',
-  },
-  count: {
-    color: colors.black,
   },
 });
 export default PostContentFooter;
