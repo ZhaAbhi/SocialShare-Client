@@ -6107,7 +6107,7 @@
     "color" "^3.1.2"
     "use-latest-callback" "^0.1.5"
 
-"react-native-reanimated@^3.4.1", "react-native-reanimated@>= 1.0.0":
+"react-native-reanimated@>= 1.0.0":
   "integrity" "sha512-UjEBbWloCoUB/fkehj9GWAhuvfUx2BLYkQ3rP7+nVMJ5K5Ck1K6XFEBGfYdz4ttCBoyTSuzrPxe2XxJl3yRSdA=="
   "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.4.1.tgz"
   "version" "3.4.1"
