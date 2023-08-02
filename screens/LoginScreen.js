@@ -15,6 +15,7 @@ import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 import axios from 'axios';
 import {api} from '../config/api';
+import {retrieveToken, storeToken} from '../utils/store';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -32,10 +33,11 @@ const LoginScreen = ({navigation}) => {
         method: 'post',
         url: api.login,
         data: userData,
-      }).then(res => {
+      }).then(async res => {
         if (res.status === 201) {
+          await storeToken(res.data.AccessToken);
           setLoading(false);
-          return Alert.alert('User loggedin successfully');
+          return Alert.alert('User logged in successfully!');
         }
       });
     } catch (error) {
