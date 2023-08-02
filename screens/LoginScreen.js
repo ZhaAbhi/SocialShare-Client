@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,13 +7,43 @@ import {
   Keyboard,
   Text,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {colors} from '../utils/colors';
 import UnAuthHeader from '../components/UnAuthHeader';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
+import axios from 'axios';
+import {api} from '../config/api';
 
 const LoginScreen = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    setLoading(true);
+    const userData = {
+      email: email.trim(),
+      password,
+    };
+    try {
+      await axios({
+        method: 'post',
+        url: api.login,
+        data: userData,
+      }).then(res => {
+        if (res.status === 201) {
+          setLoading(false);
+          return Alert.alert('User loggedin successfully');
+        }
+      });
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
   return (
     <ScrollView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -24,9 +54,22 @@ const LoginScreen = ({navigation}) => {
             info="Sign In"
           />
           <View style={styles.inputContainer}>
-            <AppTextInput placeholder="Email" />
-            <AppTextInput placeholder="Password" />
-            <AppButton title="Sign In" style={styles.button} />
+            <AppTextInput
+              placeholder="Email"
+              value={email}
+              onChangeText={text => setEmail(text)}
+            />
+            <AppTextInput
+              placeholder="Password"
+              value={password}
+              onChangeText={text => setPassword(text)}
+            />
+            <AppButton
+              title="Sign In"
+              style={styles.button}
+              onPress={handleLogin}
+              loading={loading}
+            />
           </View>
         </View>
       </TouchableWithoutFeedback>

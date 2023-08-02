@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,13 +7,56 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import UnAuthHeader from '../components/UnAuthHeader';
 import {colors} from '../utils/colors';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
+import axios from 'axios';
+import {api} from '../config/api';
 
 const RegisterScreen = ({navigation}) => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  function checkPasswordValidity() {
+    if (password !== confirmPassword) {
+      setLoading(false);
+      return Alert.alert('Password did not matched!');
+    }
+  }
+
+  const handleRegister = async () => {
+    setLoading(true);
+    checkPasswordValidity();
+    const userData = {
+      username: username.trim(),
+      email: username.trim(),
+      password: password,
+    };
+    try {
+      await axios({
+        method: 'post',
+        url: api.register,
+        data: userData,
+      }).then(res => {
+        if (res.status === 201) {
+          setLoading(false);
+          return Alert.alert(res.data.message, 'Please login to continue', [
+            {text: 'OK', onPress: () => navigation.navigate('Login')},
+          ]);
+        }
+      });
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -24,11 +67,32 @@ const RegisterScreen = ({navigation}) => {
           subgreet="A platform to share and connect"
           info="Register"
         />
-        <AppTextInput placeholder="Username" />
-        <AppTextInput placeholder="Email" />
-        <AppTextInput placeholder="Password" />
-        <AppTextInput placeholder="Confirm Password" />
-        <AppButton title="Register" style={styles.button} />
+        <AppTextInput
+          placeholder="Username"
+          value={username}
+          onChangeText={text => setUsername(text)}
+        />
+        <AppTextInput
+          placeholder="Email"
+          value={email}
+          onChangeText={text => setEmail(text)}
+        />
+        <AppTextInput
+          placeholder="Password"
+          value={password}
+          onChangeText={text => setPassword(text)}
+        />
+        <AppTextInput
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChangeText={text => setConfirmPassword(text)}
+        />
+        <AppButton
+          title="Register"
+          style={styles.button}
+          onPress={handleRegister}
+          loading={loading}
+        />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
