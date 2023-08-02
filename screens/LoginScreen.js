@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -16,8 +16,10 @@ import AppButton from '../components/AppButton';
 import axios from 'axios';
 import {api} from '../config/api';
 import {retrieveToken, storeToken} from '../utils/store';
+import AuthContext from '../context/AuthContext';
 
 const LoginScreen = ({navigation}) => {
+  const {setIsLoggedin} = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -37,7 +39,7 @@ const LoginScreen = ({navigation}) => {
         if (res.status === 201) {
           await storeToken(res.data.AccessToken);
           setLoading(false);
-          return Alert.alert('User logged in successfully!');
+          return setIsLoggedin(true);
         }
       });
     } catch (error) {

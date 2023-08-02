@@ -10,7 +10,6 @@ import NotificationScreen from '../screens/NotificationScreen';
 import MessagesScreen from '../screens/MessagesScreen';
 import FriendsScreen from '../screens/FriendsScreen';
 import HomeScreen from '../screens/HomeScreen';
-import {Animated} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 

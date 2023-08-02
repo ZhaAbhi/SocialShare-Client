@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-//import AuthNavigation from './navigation/AuthNavigation';
 import UnAuthNavigation from './navigation/UnAuthNavigation';
+import AuthContext from './context/AuthContext';
+import AuthNavigation from './navigation/AuthNavigation';
 
 const App = () => {
+  const [isLoggedin, setIsLoggedin] = useState(false);
   return (
     <NavigationContainer>
-      <UnAuthNavigation />
-      {/* <AuthNavigation /> */}
+      <AuthContext.Provider value={{isLoggedin, setIsLoggedin}}>
+        {isLoggedin ? <AuthNavigation /> : <UnAuthNavigation />}
+      </AuthContext.Provider>
     </NavigationContainer>
   );
 };
