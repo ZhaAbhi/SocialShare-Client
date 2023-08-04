@@ -53,7 +53,12 @@ const HomeScreen = ({navigation}) => {
         <FlatList
           data={posts}
           keyExtractor={item => item._id}
-          renderItem={({item}) => <PostCard post={item} />}
+          renderItem={({item}) => (
+            <PostCard
+              post={item}
+              onPress={() => navigation.navigate('PostDetail')}
+            />
+          )}
           bounces={false}
         />
       )}

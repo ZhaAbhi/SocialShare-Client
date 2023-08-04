@@ -1,6 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import BottomTabNavigation from './BottomTabNavigation';
 import PostContentScreen from '../screens/PostContentScreen';
+import PostContentDetailScreen from '../screens/PostContentDetailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ const MainNavigation = () => {
           component={PostContentScreen}
           options={{presentation: 'containedModal'}}
         />
+        <Stack.Screen name="PostDetail" component={PostContentDetailScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

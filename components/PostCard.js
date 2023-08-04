@@ -1,17 +1,10 @@
 import React from 'react';
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  Image,
-  StyleSheet,
-  Pressable,
-} from 'react-native';
+import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import {colors} from '../utils/colors';
 import PostCardFooter from './PostCardFooter';
 
-const PostCard = ({post}) => {
+const PostCard = ({post, onPress}) => {
   const {postedBy} = post;
   const nameFromEmail = postedBy.email
     .split('@')[0]
@@ -24,6 +17,7 @@ const PostCard = ({post}) => {
   };
   return (
     <Pressable
+      onPress={onPress}
       style={{
         flexDirection: 'row',
         marginVertical: 5,
