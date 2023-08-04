@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, TouchableOpacity, Text, Image, StyleSheet} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Image,
+  StyleSheet,
+  Pressable,
+} from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import {colors} from '../utils/colors';
 import PostCardFooter from './PostCardFooter';
@@ -16,7 +23,7 @@ const PostCard = ({post}) => {
     console.log(post._id);
   };
   return (
-    <View
+    <Pressable
       style={{
         flexDirection: 'row',
         marginVertical: 5,
@@ -51,8 +58,7 @@ const PostCard = ({post}) => {
           <PostCardFooter onLikePress={handleLike} />
         </View>
       </View>
-      {/* footer */}
-    </View>
+    </Pressable>
   );
 };
 export default PostCard;
