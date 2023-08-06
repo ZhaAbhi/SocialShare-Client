@@ -12,9 +12,6 @@ const PostCard = ({post, onPress}) => {
     .map(part => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
 
-  const handleLike = () => {
-    console.log(post._id);
-  };
   return (
     <Pressable
       onPress={onPress}
@@ -48,7 +45,12 @@ const PostCard = ({post, onPress}) => {
             }}
           />
         )}
-        <View style={{marginTop: 15, justifyContent: 'space-between', flexDirection:"row"}}>
+        <View
+          style={{
+            marginTop: 15,
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+          }}>
           <PostCardIcon iconName="heart" />
           <PostCardIcon iconName="retweet" />
           <PostCardIcon iconName="comment" />
