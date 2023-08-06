@@ -17,7 +17,11 @@ const MainNavigation = () => {
           component={PostContentScreen}
           options={{presentation: 'containedModal'}}
         />
-        <Stack.Screen name="PostDetail" component={PostContentDetailScreen} />
+        <Stack.Screen
+          name="PostDetail"
+          component={PostContentDetailScreen}
+          options={{headerShown: true, headerTitle: 'Detail'}}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
