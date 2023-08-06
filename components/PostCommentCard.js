@@ -20,7 +20,7 @@ const PostCommentCard = ({comment}) => {
       }}>
       <Image
         source={loadingImage}
-        style={{height: 30, width: 30, borderRadius: 15}}
+        style={{height: 25, width: 25, borderRadius: 15}}
       />
       <View style={{flex: 1, marginLeft: 5}}>
         <View style={{flexDirection: 'row'}}>

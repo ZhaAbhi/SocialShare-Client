@@ -20,7 +20,7 @@ import axios from 'axios';
 import PostCommentCard from '../components/PostCommentCard';
 
 const PostContentDetailScreen = ({route}) => {
-  const [comments, setComments] = useState();
+  const [comments, setComments] = useState([]);
   const {item} = route.params;
   const extractNameFromEmail = item.postedBy.email
     .split('@')[0]
@@ -47,7 +47,6 @@ const PostContentDetailScreen = ({route}) => {
   useEffect(() => {
     fetchComments();
   }, []);
-
   return (
     <KeyboardAvoidingView
       style={{flex: 1}}
@@ -110,11 +109,25 @@ const PostContentDetailScreen = ({route}) => {
                 marginTop: 10,
               }}></View>
             <View>
-              <FlatList
-                data={comments}
-                keyExtractor={item => item._id}
-                renderItem={({item}) => <PostCommentCard comment={item} />}
-              />
+              {comments.length > 0 ? (
+                <>
+                  <Text>All comments</Text>
+                  <FlatList
+                    data={comments}
+                    keyExtractor={item => item._id}
+                    renderItem={({item}) => <PostCommentCard comment={item} />}
+                  />
+                </>
+              ) : (
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '50%',
+                  }}>
+                  <Text>No comments</Text>
+                </View>
+              )}
             </View>
           </View>
           <View>
