@@ -56,7 +56,7 @@ const HomeScreen = ({navigation}) => {
           renderItem={({item}) => (
             <PostCard
               post={item}
-              onPress={() => navigation.navigate('PostDetail')}
+              onPress={() => navigation.navigate('PostDetail', item)}
             />
           )}
           bounces={false}

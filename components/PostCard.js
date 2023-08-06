@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import {colors} from '../utils/colors';
-import PostCardFooter from './PostCardFooter';
+import PostCardIcon from './PostCardIcon';
 
 const PostCard = ({post, onPress}) => {
   const {postedBy} = post;
@@ -48,8 +48,11 @@ const PostCard = ({post, onPress}) => {
             }}
           />
         )}
-        <View style={{marginTop: 15}}>
-          <PostCardFooter onLikePress={handleLike} />
+        <View style={{marginTop: 15, justifyContent: 'space-between', flexDirection:"row"}}>
+          <PostCardIcon iconName="heart" />
+          <PostCardIcon iconName="retweet" />
+          <PostCardIcon iconName="comment" />
+          <PostCardIcon iconName="share-google" />
         </View>
       </View>
     </Pressable>
