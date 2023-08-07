@@ -35,7 +35,7 @@ const RegisterScreen = ({navigation}) => {
     checkPasswordValidity();
     const userData = {
       username: username.trim(),
-      email: username.trim(),
+      email: email.trim(),
       password: password,
     };
     try {
