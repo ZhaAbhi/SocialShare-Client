@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -16,9 +16,29 @@ import PostCircleButton from '../components/PostCircleButton';
 import {retrieveToken} from '../utils/store';
 import axios from 'axios';
 import {api} from '../config/api';
+import UserContext from '../context/UserContext';
 
 const HomeScreen = ({navigation}) => {
   const [posts, setPosts] = useState();
+  const {setUser} = useContext(UserContext);
+
+  const fetchUser = async () => {
+    const token = await retrieveToken();
+    await axios({
+      method: 'get',
+      url: `${api.home}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(res => {
+        setUser(res.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    await fetchPost();
+  };
 
   const fetchPost = async () => {
     const token = await retrieveToken();
@@ -33,7 +53,7 @@ const HomeScreen = ({navigation}) => {
     });
   };
   useEffect(() => {
-    fetchPost();
+    fetchUser();
   }, []);
   return (
     <SafeAreaView style={styles.container}>

@@ -1,16 +1,44 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import {colors} from '../utils/colors';
 import PostCardIcon from './PostCardIcon';
+import {retrieveToken} from '../utils/store';
+import axios from 'axios';
+import UserContext from '../context/UserContext';
+import {api} from '../config/api';
 
 const PostCard = ({post, onPress}) => {
+  const {user} = useContext(UserContext);
+  const defaultPostLike = user.likes.includes(post._id);
   const {postedBy} = post;
+  const [liked, setIsLiked] = useState(defaultPostLike);
   const nameFromEmail = postedBy.email
     .split('@')[0]
     .split('.')
     .map(part => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
+
+  const handleLike = async () => {
+    const token = await retrieveToken();
+    await axios({
+      method: 'put',
+      url: `${api.postLike}/${post._id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(res => {
+        if (res.data.likes.includes(user._id)) {
+          setIsLiked(true);
+        } else {
+          setIsLiked(false);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   return (
     <Pressable
@@ -51,10 +79,14 @@ const PostCard = ({post, onPress}) => {
             justifyContent: 'space-between',
             flexDirection: 'row',
           }}>
-          <PostCardIcon iconName="heart" />
-          <PostCardIcon iconName="retweet" />
-          <PostCardIcon iconName="comment" />
-          <PostCardIcon iconName="share-google" />
+          <PostCardIcon
+            iconName="heart"
+            onPress={handleLike}
+            color={liked ? 'red' : colors.darkgray}
+          />
+          <PostCardIcon iconName="retweet" color={colors.darkgray} />
+          <PostCardIcon iconName="comment" color={colors.darkgray} />
+          <PostCardIcon iconName="share-google" color={colors.darkgray} />
         </View>
       </View>
     </Pressable>
