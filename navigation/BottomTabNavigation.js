@@ -28,8 +28,8 @@ const BottomTabNavigation = () => {
         options={{
           tabBarShowLabel: false,
 
-          tabBarIcon: ({size, focused}) => (
-            <HomeIcon name="home" size={size} color={iconFocusColor(focused)} />
+          tabBarIcon: ({focused}) => (
+            <HomeIcon name="home" size={20} color={iconFocusColor(focused)} />
           ),
         }}
       />
@@ -38,10 +38,10 @@ const BottomTabNavigation = () => {
         component={FriendSuggestionScreen}
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: ({size, focused}) => (
+          tabBarIcon: ({focused}) => (
             <FriendIcon
               name="user-friends"
-              size={size}
+              size={20}
               color={iconFocusColor(focused)}
             />
           ),
@@ -52,10 +52,10 @@ const BottomTabNavigation = () => {
         component={NotificationScreen}
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: ({size, focused}) => (
+          tabBarIcon: ({focused}) => (
             <NotificationIcon
               name="bell"
-              size={size}
+              size={20}
               color={iconFocusColor(focused)}
             />
           ),
@@ -66,10 +66,10 @@ const BottomTabNavigation = () => {
         component={MessageScreen}
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: ({size, focused}) => (
+          tabBarIcon: ({focused}) => (
             <MessageIcon
               name="envelope"
-              size={size}
+              size={20}
               color={iconFocusColor(focused)}
             />
           ),

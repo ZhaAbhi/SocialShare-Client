@@ -3,7 +3,7 @@ import MainNavigation from './MainNavigation';
 
 const Drawer = createDrawerNavigator();
 
-const DrawerNavigation = () => {
+const AuthNavigation = () => {
   return (
     <Drawer.Navigator screenOptions={{headerShown: false}}>
       <Drawer.Screen name="Profile" component={MainNavigation} />
@@ -11,4 +11,4 @@ const DrawerNavigation = () => {
   );
 };
 
-export default DrawerNavigation;
+export default AuthNavigation;
