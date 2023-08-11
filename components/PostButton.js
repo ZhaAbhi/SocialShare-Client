@@ -2,9 +2,9 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {colors} from '../utils/colors';
 
-const PostButton = () => {
+const PostButton = ({onPress}) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
       <Text style={styles.plus}>+</Text>
     </TouchableOpacity>
   );

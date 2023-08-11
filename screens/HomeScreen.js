@@ -3,13 +3,13 @@ import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import AppHeader from '../components/AppHeader';
 import PostButton from '../components/PostButton';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
-      <AppHeader />
+      <AppHeader onPressAvatar={() => navigation.openDrawer()} />
       {/* Flatlist of posts */}
 
-      <PostButton />
+      <PostButton onPress={() => navigation.navigate('PostContent')} />
     </SafeAreaView>
   );
 };

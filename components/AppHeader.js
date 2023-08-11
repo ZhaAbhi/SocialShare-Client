@@ -4,10 +4,10 @@ import loadingImage from '../assets/images/loadingImage.jpeg';
 import ModeIcon from 'react-native-vector-icons/Entypo';
 import {colors} from '../utils/colors';
 
-const AppHeader = () => {
+const AppHeader = ({onPressAvatar}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity activeOpacity={0.8}>
+      <TouchableOpacity onPress={onPressAvatar} activeOpacity={0.8}>
         <Image source={loadingImage} style={styles.avatar} />
       </TouchableOpacity>
       <Text style={styles.logo}>Social Share</Text>
