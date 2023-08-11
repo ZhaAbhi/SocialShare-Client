@@ -1,31 +1,29 @@
 import React from 'react';
-import {View, TextInput, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TextInput} from 'react-native';
 import {colors} from '../utils/colors';
 
-const AppTextInput = ({placeholder, ...otherProps}) => {
+const AppTextInput = ({placeholder}) => {
   return (
-    <View style={styles.inputBox}>
+    <View style={styles.container}>
       <TextInput
+        style={styles.textInput}
         placeholder={placeholder}
         placeholderTextColor={colors.eelightgray}
-        style={styles.input}
-        {...otherProps}
       />
     </View>
   );
 };
+
 const styles = StyleSheet.create({
-  inputBox: {
+  container: {
     marginVertical: 10,
   },
-  input: {
-    color: colors.eelightgray,
+  textInput: {
     height: 40,
-    borderRadius: 25,
-    paddingLeft: 15,
-    padding: 5,
-    borderBottomWidth: 1.5,
-    borderBottomColor: colors.elightgray,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.eelightgray,
+    color: colors.eelightgray,
   },
 });
+
 export default AppTextInput;

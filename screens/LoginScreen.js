@@ -1,123 +1,75 @@
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import {
-  StyleSheet,
   View,
-  ScrollView,
-  TouchableWithoutFeedback,
-  Keyboard,
   Text,
+  StyleSheet,
   TouchableOpacity,
-  Alert,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {colors} from '../utils/colors';
-import UnAuthHeader from '../components/UnAuthHeader';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
-import axios from 'axios';
-import {api} from '../config/api';
-import {retrieveToken, storeToken} from '../utils/store';
-import AuthContext from '../context/AuthContext';
+import AuthHeader from '../components/AuthHeader';
 
-const LoginScreen = ({navigation}) => {
-  const {setIsLoggedin} = useContext(AuthContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const handleLogin = async () => {
-    setLoading(true);
-    const userData = {
-      email: email.trim(),
-      password,
-    };
-    try {
-      await axios({
-        method: 'post',
-        url: api.login,
-        data: userData,
-      }).then(async res => {
-        if (res.status === 201) {
-          await storeToken(res.data.AccessToken);
-          setLoading(false);
-          return setIsLoggedin(true);
-        }
-      });
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  };
-
+const LoginScreen = () => {
   return (
-    <ScrollView style={styles.container}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={{flex: 1}}>
-          <UnAuthHeader
-            greet="Welcome Back!"
-            subgreet="We are happy to see you again."
-            info="Sign In"
-          />
-          <View style={styles.inputContainer}>
-            <AppTextInput
-              placeholder="Email"
-              value={email}
-              onChangeText={text => setEmail(text)}
-            />
-            <AppTextInput
-              placeholder="Password"
-              value={password}
-              onChangeText={text => setPassword(text)}
-            />
-            <AppButton
-              title="Sign In"
-              style={styles.button}
-              onPress={handleLogin}
-              loading={loading}
-            />
+    <KeyboardAvoidingView
+      style={{flex: 1}}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <View style={styles.main}>
+        <AuthHeader greet="Welcome Back" subGreet="Glat to see you again!" />
+        <Text style={styles.loginText}>Log In</Text>
+        <View style={styles.input}>
+          <AppTextInput placeholder="Email" />
+          <AppTextInput placeholder="Password" />
+        </View>
+        <View style={styles.footer}>
+          <AppButton title="Login" />
+          <View style={styles.createAccount}>
+            <Text style={styles.createAccountText}>Don't have an account?</Text>
+            <TouchableOpacity activeOpacity={0.8}>
+              <Text style={styles.register}>Register</Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </TouchableWithoutFeedback>
-      <View style={styles.footer}>
-        <View style={styles.createAccount}>
-          <Text style={styles.footerText}>Don't have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.footerText}>Register</Text>
-          </TouchableOpacity>
-        </View>
       </View>
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  main: {
     backgroundColor: colors.blue,
-  },
-  inputContainer: {
     flex: 1,
     padding: 10,
   },
-  button: {
-    marginTop: '10%',
-    width: '80%',
-    alignSelf: 'center',
+  loginText: {
+    marginTop: '20%',
+    fontSize: 25,
+    color: colors.eelightgray,
+  },
+  input: {
+    marginTop: '5%',
   },
   footer: {
-    flex: 1,
-    marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: '10%',
   },
   createAccount: {
     flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: '10%',
   },
-  footerText: {
+  createAccountText: {
     color: colors.eelightgray,
+    fontSize: 18,
+  },
+  register: {
     marginLeft: 5,
-    fontSize: 17,
-    fontFamily: 'Poppins-Medium',
+    color: colors.eelightgray,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
-
 export default LoginScreen;

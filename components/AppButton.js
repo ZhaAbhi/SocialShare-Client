@@ -1,39 +1,30 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
+import {TouchableOpacity, StyleSheet, Text} from 'react-native';
 import {colors} from '../utils/colors';
 
-const AppButton = ({style, title, loading, onPress}) => {
+const AppButton = ({title}) => {
   return (
-    <TouchableOpacity
-      disabled={loading}
-      style={[style, styles.button]}
-      activeOpacity={0.8}
-      onPress={onPress}>
-      {loading ? (
-        <ActivityIndicator size="small" color={colors.elightgray} />
-      ) : (
-        <Text style={styles.text}>{title}</Text>
-      )}
+    <TouchableOpacity style={styles.container}>
+      <Text style={styles.buttonTitle}>{title}</Text>
     </TouchableOpacity>
   );
 };
+
 const styles = StyleSheet.create({
-  button: {
+  container: {
+    width: '90%',
+    height: 40,
     backgroundColor: colors.black,
-    height: 35,
-    borderRadius: 25,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
   },
-  text: {
+  buttonTitle: {
     color: colors.eelightgray,
-    fontFamily: 'Poppins-Medium',
-    fontSize: 17,
+    letterSpacing: 1.3,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
+
 export default AppButton;
