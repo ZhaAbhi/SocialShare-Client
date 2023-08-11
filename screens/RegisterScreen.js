@@ -13,7 +13,7 @@ import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 import AuthHeader from '../components/AuthHeader';
 
-const RegisterScreen = () => {
+const RegisterScreen = ({navigation}) => {
   return (
     <KeyboardAvoidingView
       style={{flex: 1}}
@@ -36,7 +36,9 @@ const RegisterScreen = () => {
             <Text style={styles.alreadyAccountText}>
               Already have an account?
             </Text>
-            <TouchableOpacity activeOpacity={0.8}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate('Login')}>
               <Text style={styles.login}>Login</Text>
             </TouchableOpacity>
           </View>

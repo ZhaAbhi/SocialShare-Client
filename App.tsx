@@ -1,8 +1,13 @@
 import React from 'react';
-import RegisterScreen from './screens/RegisterScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import UnAuthNavigation from './navigation/UnAuthNavigation';
 
 const App = () => {
-  return <RegisterScreen />;
+  return (
+    <NavigationContainer>
+      <UnAuthNavigation />
+    </NavigationContainer>
+  );
 };
 
 export default App;
