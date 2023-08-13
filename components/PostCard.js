@@ -1,12 +1,15 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import AppReactIcon from './AppReactIcon';
 import {colors} from '../utils/colors';
 
 const PostCard = ({onPress}) => {
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      style={styles.container}
+      onPress={onPress}>
       <View style={styles.upper}>
         <Image source={loadingImage} style={styles.avatar} />
         <View style={styles.intro}>
@@ -28,7 +31,7 @@ const PostCard = ({onPress}) => {
           </View>
         </View>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({
