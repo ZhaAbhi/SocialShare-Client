@@ -4,9 +4,9 @@ import loadingImage from '../assets/images/loadingImage.jpeg';
 import AppReactIcon from './AppReactIcon';
 import {colors} from '../utils/colors';
 
-const PostCard = () => {
+const PostCard = ({onPress}) => {
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.upper}>
         <Image source={loadingImage} style={styles.avatar} />
         <View style={styles.intro}>

@@ -42,7 +42,7 @@ const HomeScreen = ({navigation}) => {
     <SafeAreaView style={{flex: 1}}>
       <AppHeader onPressAvatar={() => navigation.openDrawer()} />
       {/* Flatlist of posts */}
-      <PostCard />
+      <PostCard onPress={() => navigation.navigate('PostDetail')} />
       <PostCard />
       <PostCard />
       <PostButton onPress={() => navigation.navigate('PostContent')} />
