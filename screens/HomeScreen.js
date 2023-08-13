@@ -6,6 +6,7 @@ import axios from 'axios';
 import {retrieve} from '../utils/asyncStore';
 import {api} from '../config/api';
 import UserContext from '../context/UserContext';
+import PostCard from '../components/PostCard';
 
 const HomeScreen = ({navigation}) => {
   const {setUser, user} = useContext(UserContext);
@@ -41,7 +42,9 @@ const HomeScreen = ({navigation}) => {
     <SafeAreaView style={{flex: 1}}>
       <AppHeader onPressAvatar={() => navigation.openDrawer()} />
       {/* Flatlist of posts */}
-      <Text>{user && user.email}</Text>
+      <PostCard />
+      <PostCard />
+      <PostCard />
       <PostButton onPress={() => navigation.navigate('PostContent')} />
     </SafeAreaView>
   );
