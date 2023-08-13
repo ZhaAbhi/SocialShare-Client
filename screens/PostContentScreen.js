@@ -52,6 +52,7 @@ const PostContentScreen = ({navigation}) => {
               placeholder="What's happening.."
               placeholderTextColor={colors.lightgray}
               multiline
+              maxLength={200}
               value={textContent}
               onChangeText={text => setTextContent(text)}
               style={styles.textInput}
@@ -68,8 +69,15 @@ const PostContentScreen = ({navigation}) => {
             {/* <CameraIcon name="camera" size={45} color={colors.eelightgray} />   */}
           </View>
         </View>
-        <View style={styles.count}>
-          <Text style={styles.textCount}>100</Text>
+        <View
+          style={[
+            styles.count,
+            {borderColor: textContent.length === 200 ? 'red' : colors.blue},
+          ]}>
+          <Text
+            style={{color: textContent.length === 200 ? 'red' : colors.black}}>
+            {textContent.length}
+          </Text>
         </View>
       </View>
     </KeyboardAvoidingView>
@@ -159,13 +167,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 25,
-    borderColor: colors.blue,
     borderWidth: 1.5,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  textCount: {
-    color: colors.black,
   },
 });
 
