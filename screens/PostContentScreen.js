@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import {colors} from '../utils/colors';
 import loadingImage from '../assets/images/loadingImage.jpeg';
+import CameraIcon from 'react-native-vector-icons/Entypo';
 
 const PostContentScreen = ({navigation}) => {
   return (
@@ -47,8 +48,18 @@ const PostContentScreen = ({navigation}) => {
           </ScrollView>
         </View>
       </TouchableWithoutFeedback>
-      <View>
-        <Text>Hello there</Text>
+      <View style={styles.footer}>
+        <View style={styles.uploadImageContainer}>
+          <TouchableOpacity style={styles.imagePicker} activeOpacity={0.8}>
+            <CameraIcon name="camera" size={45} color={colors.eelightgray} />
+          </TouchableOpacity>
+          <View style={styles.imagePicker}>
+            {/* <CameraIcon name="camera" size={45} color={colors.eelightgray} />   */}
+          </View>
+        </View>
+        <View style={styles.count}>
+          <Text style={styles.textCount}>100</Text>
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
@@ -114,6 +125,36 @@ const styles = StyleSheet.create({
   textInput: {
     height: 200,
     paddingLeft: 20,
+    color: colors.black,
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+    alignItems: 'center',
+  },
+  uploadImageContainer: {
+    flexDirection: 'row',
+  },
+  imagePicker: {
+    height: 90,
+    width: 90,
+    backgroundColor: colors.darkgray,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    marginLeft: 10,
+  },
+  count: {
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+    borderColor: colors.blue,
+    borderWidth: 1.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textCount: {
     color: colors.black,
   },
 });
