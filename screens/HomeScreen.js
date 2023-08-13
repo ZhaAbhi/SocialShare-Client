@@ -7,6 +7,7 @@ import {retrieve} from '../utils/asyncStore';
 import {api} from '../config/api';
 import UserContext from '../context/UserContext';
 import PostCard from '../components/PostCard';
+import {colors} from '../utils/colors';
 
 const HomeScreen = ({navigation}) => {
   const {setUser, user} = useContext(UserContext);
@@ -39,7 +40,7 @@ const HomeScreen = ({navigation}) => {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.container}>
       <AppHeader onPressAvatar={() => navigation.openDrawer()} />
       {/* Flatlist of posts */}
       <PostCard onPress={() => navigation.navigate('PostDetail')} />
@@ -50,6 +51,11 @@ const HomeScreen = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
+});
 
 export default HomeScreen;
