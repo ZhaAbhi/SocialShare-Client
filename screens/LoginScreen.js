@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,41 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import {colors} from '../utils/colors';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 import AuthHeader from '../components/AuthHeader';
+import AuthContext from '../context/AuthContext';
+import axios from 'axios';
+import {api} from '../config/api';
+import AsyncStore, {store} from '../utils/asyncStore';
 
 const LoginScreen = ({navigation}) => {
+  const {setLoggedIn} = useContext(AuthContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    await axios({
+      method: 'post',
+      url: api.login,
+      data: {
+        email,
+        password,
+      },
+    })
+      .then(res => {
+        if (res.status === 201) {
+          store(res.data.accessToken);
+          setLoggedIn(true);
+        }
+      })
+      .catch(error => {
+        return Alert.alert(error.response.data.error);
+      });
+  };
   return (
     <KeyboardAvoidingView
       style={{flex: 1}}
@@ -21,14 +49,24 @@ const LoginScreen = ({navigation}) => {
         <AuthHeader greet="Welcome Back" subGreet="Glat to see you again!" />
         <Text style={styles.loginText}>Log In</Text>
         <View style={styles.input}>
-          <AppTextInput placeholder="Email" />
-          <AppTextInput placeholder="Password" />
+          <AppTextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={text => setEmail(text)}
+          />
+          <AppTextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={text => setPassword(text)}
+          />
         </View>
         <View style={styles.footer}>
-          <AppButton title="Login" />
+          <AppButton title="Login" onPress={handleLogin} />
           <View style={styles.createAccount}>
             <Text style={styles.createAccountText}>Don't have an account?</Text>
-            <TouchableOpacity activeOpacity={0.8} onPress={()=>navigation.navigate('Register')}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate('Register')}>
               <Text style={styles.register}>Register</Text>
             </TouchableOpacity>
           </View>
