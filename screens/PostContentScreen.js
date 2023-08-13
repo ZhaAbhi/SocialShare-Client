@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   Keyboard,
@@ -17,6 +17,7 @@ import loadingImage from '../assets/images/loadingImage.jpeg';
 import CameraIcon from 'react-native-vector-icons/Entypo';
 
 const PostContentScreen = ({navigation}) => {
+  const [textContent, setTextContent] = useState('');
   return (
     <KeyboardAvoidingView
       style={{flex: 1}}
@@ -27,7 +28,15 @@ const PostContentScreen = ({navigation}) => {
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Text style={styles.close}>X</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.postButton}>
+            <TouchableOpacity
+              style={[
+                styles.postButton,
+                {
+                  backgroundColor:
+                    textContent.trim() === '' ? colors.dimBlue : colors.blue,
+                },
+              ]}
+              disabled={textContent.trim() === ''}>
               <Text style={styles.postText}>POST</Text>
             </TouchableOpacity>
           </View>
@@ -43,6 +52,8 @@ const PostContentScreen = ({navigation}) => {
               placeholder="What's happening.."
               placeholderTextColor={colors.lightgray}
               multiline
+              value={textContent}
+              onChangeText={text => setTextContent(text)}
               style={styles.textInput}
             />
           </ScrollView>
@@ -85,7 +96,6 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   postButton: {
-    backgroundColor: colors.blue,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 2,
