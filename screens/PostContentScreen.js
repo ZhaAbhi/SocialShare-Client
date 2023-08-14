@@ -17,6 +17,9 @@ import {colors} from '../utils/colors';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import CameraIcon from 'react-native-vector-icons/Entypo';
 import {launchImageLibrary} from 'react-native-image-picker';
+import axios from 'axios';
+import {retrieve} from '../utils/asyncStore';
+import {api} from '../config/api';
 
 const PostContentScreen = ({navigation}) => {
   const [textContent, setTextContent] = useState('');
@@ -37,6 +40,50 @@ const PostContentScreen = ({navigation}) => {
         return;
       });
   };
+  const handlePostContent = async () => {
+    const token = await retrieve();
+    let formData = new FormData();
+    formData.append('content', textContent);
+    if (imagePicked) {
+      formData.append('contentImage', {
+        uri: imagePicked.uri,
+        type: imagePicked.type,
+        name: imagePicked.fileName,
+      });
+    }
+    await axios({
+      method: 'post',
+      url: api.post,
+      data: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then(res => {
+        if (res.status === 201) {
+          setImagePicked(null);
+          setTextContent('');
+          return Alert.alert(
+            'Congratulations!',
+            'You post has been successfully created!',
+            [
+              {
+                text: 'Cancel',
+                onPress: () => {
+                  return;
+                },
+                style: 'cancel',
+              },
+              {text: 'OK', onPress: () => navigation.goBack()},
+            ],
+          );
+        }
+      })
+      .catch(error => {
+        return Alert.alert('Something went wrong, Please try again posting!');
+      });
+  };
 
   return (
     <KeyboardAvoidingView
@@ -49,6 +96,7 @@ const PostContentScreen = ({navigation}) => {
               <Text style={styles.close}>X</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={handlePostContent}
               style={[
                 styles.postButton,
                 {
