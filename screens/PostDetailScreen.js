@@ -15,7 +15,9 @@ import CommentCard from '../components/CommentCard';
 import {colors} from '../utils/colors';
 import SendIcon from 'react-native-vector-icons/MaterialIcons';
 
-const PostDetailScreen = () => {
+const PostDetailScreen = ({route}) => {
+  const {postId} = route.params;
+  console.log(postId);
   const [commentContent, setCommentContent] = useState('');
   return (
     <KeyboardAvoidingView
@@ -23,7 +25,7 @@ const PostDetailScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={80}>
       <View style={{flex: 1}}>
-        <PostCard />
+        {/* Style header here */}
         <Text style={styles.comment}>All comments :</Text>
         <ScrollView showsVerticalScrollIndicator={false} style={{padding: 10}}>
           <CommentCard />

@@ -3,8 +3,11 @@ import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import AppReactIcon from './AppReactIcon';
 import {colors} from '../utils/colors';
+import {api} from '../config/api';
 
-const PostCard = ({onPress}) => {
+const PostCard = ({onPress, item}) => {
+  const {postedBy} = item;
+  const emailFirstName = postedBy.email.match(/^([^@]+)/)[1];
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -14,13 +17,20 @@ const PostCard = ({onPress}) => {
         <Image source={loadingImage} style={styles.avatar} />
         <View style={styles.intro}>
           <View style={styles.postedBy}>
-            <Text style={styles.name}>Abhishek</Text>
-            <Text style={styles.username}>@Abhishek</Text>
+            <Text style={styles.name}>{emailFirstName}</Text>
+            <Text style={styles.username}>@{postedBy.username}</Text>
           </View>
-          <Text style={styles.content}>This is my content content</Text>
-          {/* <View style={{marginTop: 5}}>
-            <Image source={loadingImage} style={styles.uploadImage} />
-          </View> */}
+          <Text style={styles.content}>{item.content}</Text>
+          {item.contentImage && (
+            <View style={{marginTop: 5}}>
+              <Image
+                source={{
+                  uri: `${api.displayImage}/${item.contentImage}`,
+                }}
+                style={styles.uploadImage}
+              />
+            </View>
+          )}
 
           {/* footer icon */}
           <View style={styles.iconContainer}>

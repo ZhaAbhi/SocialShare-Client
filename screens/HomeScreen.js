@@ -1,5 +1,12 @@
-import React, {useContext, useEffect} from 'react';
-import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {
+  Alert,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import AppHeader from '../components/AppHeader';
 import PostButton from '../components/PostButton';
 import axios from 'axios';
@@ -10,8 +17,10 @@ import PostCard from '../components/PostCard';
 import {colors} from '../utils/colors';
 
 const HomeScreen = ({navigation}) => {
-  const {setUser, user} = useContext(UserContext);
+  const {setUser} = useContext(UserContext);
+  const [posts, setPosts] = useState();
   const fetchUserInfo = async () => {
+    console.log('calling api for fetching the user');
     await retrieve()
       .then(async token => {
         await axios({
@@ -35,17 +44,51 @@ const HomeScreen = ({navigation}) => {
       });
   };
 
+  const fetchAllPost = async () => {
+    console.log('calling api for fetching the post');
+    await retrieve().then(async token => {
+      await axios({
+        method: 'get',
+        url: api.getAllPost,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => {
+          setPosts(res.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
+  };
+
   useEffect(() => {
     fetchUserInfo();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchAllPost();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.container}>
       <AppHeader onPressAvatar={() => navigation.openDrawer()} />
-      {/* Flatlist of posts */}
-      <PostCard onPress={() => navigation.navigate('PostDetail')} />
-      <PostCard />
-      <PostCard />
+      {posts && (
+        <FlatList
+          data={posts}
+          keyExtractor={post => post._id}
+          renderItem={({item}) => (
+            <PostCard
+              item={item}
+              onPress={() =>
+                navigation.navigate('PostDetail', {postId: item._id})
+              }
+            />
+          )}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
       <PostButton onPress={() => navigation.navigate('PostContent')} />
     </SafeAreaView>
   );
