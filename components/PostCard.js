@@ -4,21 +4,19 @@ import loadingImage from '../assets/images/loadingImage.jpeg';
 import AppReactIcon from './AppReactIcon';
 import {colors} from '../utils/colors';
 import {api} from '../config/api';
-import UserContext from '../context/UserContext';
 import LikeIcon from './LikeIcon';
-import {retrieve} from '../utils/asyncStore';
-import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
 
-const PostCard = ({onPress, item}) => {
-  const {postedBy, likes} = item;
-  const {user} = useContext(UserContext);
+const PostCard = ({item}) => {
+  const navigation = useNavigation();
+  const {postedBy} = item;
   const emailFirstName = postedBy.email.match(/^([^@]+)/)[1];
 
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       style={styles.container}
-      onPress={onPress}>
+      onPress={() => navigation.navigate('PostDetail', {post: item})}>
       <View style={styles.upper}>
         <Image source={loadingImage} style={styles.avatar} />
         <View style={styles.intro}>

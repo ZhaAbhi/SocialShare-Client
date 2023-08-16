@@ -19,43 +19,28 @@ import {api} from '../config/api';
 import moment from 'moment';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import AppReactIcon from '../components/AppReactIcon';
-import UserContext from '../context/UserContext';
 import LikeIcon from '../components/LikeIcon';
+import UserContext from '../context/UserContext';
 
-const PostDetailScreen = ({route, navigation}) => {
-  const {postId} = route.params;
-  const {user} = useContext(UserContext);
+const PostDetailScreen = ({route}) => {
+  const {post} = route.params;
   const [commentContent, setCommentContent] = useState('');
-  const [post, setPost] = useState();
-  const emailFirstName = post?.postedBy.email.match(/^([^@]+)/)[1];
+  const emailFirstName = post && post.postedBy.email.match(/^([^@]+)/)[1];
 
-  const retrievePost = async () => {
-    await retrieve()
-      .then(async token => {
-        await axios({
-          method: 'get',
-          url: `${api.post}/${postId}`,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then(res => {
-            if (res.status === 200) {
-              setPost(res.data);
-            }
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      })
+  const handleLike = async () => {
+    const token = await retrieve();
+    await axios({
+      method: 'put',
+      url: `${api.postLike}/${post._id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(res => {})
       .catch(error => {
         console.log(error);
       });
   };
-
-  useEffect(() => {
-    retrievePost();
-  }, []);
 
   return (
     post && (
