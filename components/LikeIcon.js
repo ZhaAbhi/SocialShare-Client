@@ -1,8 +1,8 @@
 import React from 'react';
 import {TouchableOpacity, Text} from 'react-native';
-import EvilIcon from 'react-native-vector-icons/EvilIcons';
+import HeartIcon from 'react-native-vector-icons/Ionicons';
 
-const AppReactIcon = ({onPress, name, color, count}) => {
+const LikeIcon = ({onPress, name, color, count}) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -12,9 +12,10 @@ const AppReactIcon = ({onPress, name, color, count}) => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <EvilIcon name={name} size={20} color={color} />
+      <HeartIcon name={name} color={color} size={17} />
       <Text style={{marginLeft: 3, fontSize: 11}}>{count}</Text>
     </TouchableOpacity>
   );
 };
-export default AppReactIcon;
+
+export default LikeIcon;

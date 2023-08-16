@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import AppReactIcon from './AppReactIcon';
 import {colors} from '../utils/colors';
 import {api} from '../config/api';
+import UserContext from '../context/UserContext';
+import LikeIcon from './LikeIcon';
+import {retrieve} from '../utils/asyncStore';
+import axios from 'axios';
 
 const PostCard = ({onPress, item}) => {
-  const {postedBy} = item;
+  const {postedBy, likes} = item;
+  const {user} = useContext(UserContext);
   const emailFirstName = postedBy.email.match(/^([^@]+)/)[1];
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -34,9 +40,9 @@ const PostCard = ({onPress, item}) => {
 
           {/* footer icon */}
           <View style={styles.iconContainer}>
-            <AppReactIcon name="comment" />
-            <AppReactIcon name="retweet" />
-            <AppReactIcon name="heart" />
+            <AppReactIcon name="comment" count={6} />
+            <AppReactIcon name="retweet" count={25} />
+            <LikeIcon name="heart-outline" />
             <AppReactIcon name="share-google" />
           </View>
         </View>
