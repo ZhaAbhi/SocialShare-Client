@@ -10,7 +10,7 @@ import PostCard from '../components/PostCard';
 import {colors} from '../utils/colors';
 
 const HomeScreen = ({navigation}) => {
-  const {setUser} = useContext(UserContext);
+  const {setUser, user} = useContext(UserContext);
   const [posts, setPosts] = useState();
 
   const fetchUserInfo = async token => {
@@ -60,7 +60,14 @@ const HomeScreen = ({navigation}) => {
         <FlatList
           data={posts}
           keyExtractor={post => post._id}
-          renderItem={({item}) => <PostCard item={item} />}
+          renderItem={({item}) => (
+            <PostCard
+              item={item}
+              onPress={() =>
+                navigation.navigate('PostDetail', {postId: item._id})
+              }
+            />
+          )}
           showsVerticalScrollIndicator={false}
         />
       )}

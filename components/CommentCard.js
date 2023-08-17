@@ -3,16 +3,17 @@ import {Image, View, Text, StyleSheet} from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import {colors} from '../utils/colors';
 
-const CommentCard = () => {
+const CommentCard = ({item}) => {
+  const emailFirstName = item.commentsBy.email.match(/^([^@]+)/)[1];
   return (
     <View style={styles.container}>
       <Image source={loadingImage} style={styles.avatar} />
       <View style={styles.postedBy}>
         <View style={styles.postedByNameContainer}>
-          <Text>Abhishek</Text>
-          <Text style={styles.username}>@Abhishek</Text>
+          <Text>{emailFirstName}</Text>
+          <Text style={styles.username}>@{item.commentsBy.username}</Text>
         </View>
-        <Text style={styles.comment}>This is my comment</Text>
+        <Text style={styles.comment}>{item.commentContent}</Text>
       </View>
     </View>
   );

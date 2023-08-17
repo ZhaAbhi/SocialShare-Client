@@ -22,28 +22,88 @@ import AppReactIcon from '../components/AppReactIcon';
 import LikeIcon from '../components/LikeIcon';
 import UserContext from '../context/UserContext';
 
-const PostDetailScreen = ({route}) => {
-  const {post} = route.params;
+const PostDetailScreen = ({route, navigation}) => {
+  const {postId} = route.params;
   const [commentContent, setCommentContent] = useState('');
-  const emailFirstName = post && post.postedBy.email.match(/^([^@]+)/)[1];
+  const [updatedPost, setUpdatedPost] = useState();
+  const {user} = useContext(UserContext);
+  const [like, setLike] = useState();
+  const [likeCount, setLikeCount] = useState();
+  const [comment, setComment] = useState([]);
 
-  const handleLike = async () => {
+  const handleComment = async () => {
     const token = await retrieve();
     await axios({
-      method: 'put',
-      url: `${api.postLike}/${post._id}`,
+      method: 'post',
+      url: `${api.postComment}/${postId}`,
+      data: {
+        commentContent: commentContent,
+      },
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then(res => {})
+      .then(res => {
+        setComment(res.data.comments);
+        setCommentContent('');
+      })
       .catch(error => {
         console.log(error);
       });
   };
 
+  const handleLike = async () => {
+    const token = await retrieve();
+    await axios({
+      method: 'put',
+      url: `${api.postLike}/${postId}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(res => {
+        const updatedLike = res.data.likes.includes(user._id);
+        setLikeCount(res.data.likes.length);
+        setLike(updatedLike);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  const emailFirstName =
+    updatedPost && updatedPost.postedBy.email.match(/^([^@]+)/)[1];
+
+  const fetchLatestPost = async () => {
+    const token = await retrieve();
+    await axios({
+      method: 'get',
+      url: `${api.post}/${postId}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(res => {
+        setUpdatedPost(res.data);
+        setComment(res.data.comments);
+        const fetchLike = res.data.likes.includes(user._id);
+        setLikeCount(res.data.likes.length);
+        setLike(fetchLike);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchLatestPost();
+    });
+    return unsubscribe;
+  }, []);
+
   return (
-    post && (
+    updatedPost && (
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -60,7 +120,7 @@ const PostDetailScreen = ({route}) => {
                   {emailFirstName}
                 </Text>
                 <Text style={{fontSize: 16, color: colors.darkgray}}>
-                  @{post.postedBy.username}
+                  @{updatedPost.postedBy.username}
                 </Text>
               </View>
             </View>
@@ -72,11 +132,13 @@ const PostDetailScreen = ({route}) => {
                   fontSize: 17,
                   color: colors.black,
                 }}>
-                {post.content}
+                {updatedPost.content}
               </Text>
-              {post.contentImage && (
+              {updatedPost.contentImage && (
                 <Image
-                  source={{uri: `${api.displayImage}/${post.contentImage}`}}
+                  source={{
+                    uri: `${api.displayImage}/${updatedPost.contentImage}`,
+                  }}
                   style={{
                     height: 170,
                     width: '100%',
@@ -85,16 +147,35 @@ const PostDetailScreen = ({route}) => {
                   }}
                 />
               )}
-              <Text
+              <View
                 style={{
-                  marginBottom: 5,
-                  marginTop: 10,
-                  marginLeft: 10,
-                  fontSize: 15,
-                  color: colors.darkgray,
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}>
-                Posted on: {moment(post.createdAt).fromNow()}
-              </Text>
+                <Text
+                  style={{
+                    marginBottom: 5,
+                    marginTop: 10,
+                    marginLeft: 10,
+                    fontSize: 15,
+                    color: colors.darkgray,
+                  }}>
+                  · Posted on: {moment(updatedPost.createdAt).fromNow()}
+                </Text>
+                {comment.length > 0 && (
+                  <Text
+                    style={{
+                      marginBottom: 5,
+                      marginTop: 10,
+                      marginLeft: 10,
+                      color: colors.darkgray,
+                      fontSize: 15,
+                    }}>
+                    · {comment.length} comment
+                  </Text>
+                )}
+              </View>
+
               <View
                 style={{
                   borderBottomWidth: StyleSheet.hairlineWidth,
@@ -108,7 +189,12 @@ const PostDetailScreen = ({route}) => {
                   marginBottom: 7,
                   padding: 5,
                 }}>
-                <LikeIcon name="heart-outline" />
+                <LikeIcon
+                  name={like ? 'heart' : 'heart-outline'}
+                  color={like ? 'red' : colors.black}
+                  count={likeCount > 0 ? likeCount : ''}
+                  onPress={handleLike}
+                />
                 <AppReactIcon name="retweet" />
                 <AppReactIcon name="share-google" />
               </View>
@@ -120,13 +206,9 @@ const PostDetailScreen = ({route}) => {
             </View>
             <Text style={styles.comment}>All comments :</Text>
             <ScrollView style={{padding: 10}}>
-              <CommentCard />
-              <CommentCard />
-              <CommentCard />
-              <CommentCard />
-              <CommentCard />
-              <CommentCard />
-              <CommentCard />
+              {comment.map(item => {
+                return <CommentCard item={item} />;
+              })}
             </ScrollView>
           </View>
         </ScrollView>
@@ -140,6 +222,7 @@ const PostDetailScreen = ({route}) => {
             style={styles.textInput}
           />
           <TouchableOpacity
+            onPress={handleComment}
             style={{marginLeft: 5}}
             disabled={commentContent.trim() === ''}>
             <SendIcon
