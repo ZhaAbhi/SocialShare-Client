@@ -96,10 +96,7 @@ const PostDetailScreen = ({route, navigation}) => {
   };
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      fetchLatestPost();
-    });
-    return unsubscribe;
+    fetchLatestPost();
   }, []);
 
   return (

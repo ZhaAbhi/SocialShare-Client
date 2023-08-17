@@ -8,13 +8,40 @@ import LikeIcon from './LikeIcon';
 import UserContext from '../context/UserContext';
 import {retrieve} from '../utils/asyncStore';
 import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
 
 const PostCard = ({item, onPress}) => {
+  const navigation = useNavigation();
   const {postedBy, likes} = item;
   const {user} = useContext(UserContext);
-  const [like, setLike] = useState(user.likes.includes(item._id));
+  const [like, setLike] = useState(likes.includes(user._id));
   const [likeCount, setLikeCount] = useState(likes.length);
   const emailFirstName = postedBy.email.match(/^([^@]+)/)[1];
+
+  const fetchLatestPost = async () => {
+    const token = await retrieve();
+    await axios({
+      method: 'get',
+      url: `${api.post}/${item._id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(res => {
+        setLike(res.data.likes.includes(user._id));
+        setLikeCount(res.data.likes.length);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchLatestPost();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const handleLike = async () => {
     const token = await retrieve();
