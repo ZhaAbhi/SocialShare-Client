@@ -19,7 +19,6 @@ const PostCard = ({item, onPress}) => {
   const emailFirstName = postedBy.email.match(/^([^@]+)/)[1];
 
   const fetchLatestPost = async () => {
-    console.log('fetching from post card');
     const token = await retrieve();
     await axios({
       method: 'get',
