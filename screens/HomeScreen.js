@@ -47,11 +47,8 @@ const HomeScreen = ({navigation}) => {
   };
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      fetchAllPost();
-    });
-    return unsubscribe;
-  }, [navigation]);
+    fetchAllPost();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
