@@ -191,8 +191,9 @@ const PostDetailScreen = ({route, navigation}) => {
                 }}>
                 <LikeIcon
                   name={like ? 'heart' : 'heart-outline'}
-                  color={like ? 'red' : colors.black}
+                  color={like ? colors.heart : colors.black}
                   count={likeCount > 0 ? likeCount : ''}
+                  countColor={like ? colors.heart : colors.black}
                   onPress={handleLike}
                 />
                 <AppReactIcon name="retweet" />
@@ -207,7 +208,7 @@ const PostDetailScreen = ({route, navigation}) => {
             <Text style={styles.comment}>All comments :</Text>
             <ScrollView style={{padding: 10}}>
               {comment.map(item => {
-                return <CommentCard item={item} />;
+                return <CommentCard item={item} key={item._id} />;
               })}
             </ScrollView>
           </View>

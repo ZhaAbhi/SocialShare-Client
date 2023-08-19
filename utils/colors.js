@@ -7,5 +7,5 @@ export const colors = {
   elightgray: '#E1E8ED',
   eelightgray: '#F5F8FA',
   white: '#FDFEFF',
-  red: 'red',
+  heart: '#f00c76',
 };

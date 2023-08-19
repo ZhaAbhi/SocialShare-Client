@@ -95,8 +95,9 @@ const PostCard = ({item, onPress}) => {
               <LikeIcon
                 onPress={handleLike}
                 name={like ? 'heart' : 'heart-outline'}
-                color={like ? 'red' : colors.black}
+                color={like ? colors.heart : colors.black}
                 count={likeCount > 0 ? likeCount : ''}
+                countColor={like ? colors.heart : colors.black}
               />
               <AppReactIcon name="share-google" />
             </View>
