@@ -1,11 +1,14 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import MainNavigation from './MainNavigation';
+import CustomDrawerContent from '../components/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
 
 const AuthNavigation = () => {
   return (
-    <Drawer.Navigator screenOptions={{headerShown: false}}>
+    <Drawer.Navigator
+      drawerContent={() => <CustomDrawerContent />}
+      screenOptions={{headerShown: false}}>
       <Drawer.Screen name="Profile" component={MainNavigation} />
     </Drawer.Navigator>
   );

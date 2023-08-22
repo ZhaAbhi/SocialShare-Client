@@ -2,6 +2,7 @@ import {TransitionPresets, createStackNavigator} from '@react-navigation/stack';
 import PostContentScreen from '../screens/PostContentScreen';
 import BottomTabNavigation from './BottomTabNavigation';
 import PostDetailScreen from '../screens/PostDetailScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,13 @@ const MainNavigation = () => {
           name="PostContent"
           component={PostContentScreen}
           options={{...TransitionPresets.BottomSheetAndroid}}
+        />
+        <Stack.Screen
+          name="ProfileScreen"
+          component={ProfileScreen}
+          options={{
+            ...TransitionPresets.SlideFromRightIOS,
+          }}
         />
       </Stack.Group>
     </Stack.Navigator>

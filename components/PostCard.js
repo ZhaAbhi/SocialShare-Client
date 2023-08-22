@@ -44,6 +44,12 @@ const PostCard = ({item, onPress}) => {
   }, [navigation]);
 
   const handleLike = async () => {
+    setLike(!like);
+    if (like === false) {
+      setLikeCount(likeCount + 1);
+    } else {
+      setLikeCount(likeCount - 1);
+    }
     const token = await retrieve();
     await axios({
       method: 'put',
