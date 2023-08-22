@@ -19,9 +19,11 @@ const FriendLists = ({user}) => {
           <Text style={{fontSize: 14, color: colors.darkgray}}>
             @{user.username}
           </Text>
-          <Text style={{fontSize: 16, color: colors.black, marginTop: 5}}>
-            This is user description.
-          </Text>
+          {user.bio && (
+            <Text style={{fontSize: 16, color: colors.black, marginTop: 5}}>
+              This is user description.
+            </Text>
+          )}
         </View>
         <View style={{marginLeft: 'auto'}}>
           <TouchableOpacity
