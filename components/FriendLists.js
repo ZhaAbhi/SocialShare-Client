@@ -1,10 +1,37 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import {colors} from '../utils/colors';
+import UserContext from '../context/UserContext';
+import axios from 'axios';
+import {retrieve} from '../utils/asyncStore';
+import {api} from '../config/api';
 
-const FriendLists = ({user}) => {
-  const firstnameFromEmail = user.email.match(/^([^@]+)/)[1];
+const FriendLists = ({item}) => {
+  const {user} = useContext(UserContext);
+  const firstnameFromEmail = item.email.match(/^([^@]+)/)[1];
+  const [following, setIsFollowing] = useState(
+    user.followings.includes(item._id),
+  );
+
+  const handleFollowing = async () => {
+    const token = await retrieve();
+    await axios({
+      method: 'put',
+      url: `${api.follow}/${item._id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(res => {
+        const updatedResult = res.data.followers.includes(user._id);
+        setIsFollowing(updatedResult);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   return (
     <View style={{marginBottom: 10}}>
       <View style={{flexDirection: 'row'}}>
@@ -17,9 +44,9 @@ const FriendLists = ({user}) => {
             {firstnameFromEmail}
           </Text>
           <Text style={{fontSize: 14, color: colors.darkgray}}>
-            @{user.username}
+            @{item.username}
           </Text>
-          {user.bio && (
+          {item.bio && (
             <Text style={{fontSize: 16, color: colors.black, marginTop: 5}}>
               This is user description.
             </Text>
@@ -27,6 +54,7 @@ const FriendLists = ({user}) => {
         </View>
         <View style={{marginLeft: 'auto'}}>
           <TouchableOpacity
+            onPress={handleFollowing}
             style={{
               backgroundColor: colors.blue,
               paddingLeft: 10,
@@ -36,7 +64,7 @@ const FriendLists = ({user}) => {
               borderRadius: 20,
             }}>
             <Text style={{color: colors.eelightgray, fontWeight: 'bold'}}>
-              Follow
+              {following ? 'Following' : 'Follow'}
             </Text>
           </TouchableOpacity>
         </View>

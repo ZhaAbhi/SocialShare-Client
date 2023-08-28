@@ -6,7 +6,7 @@ import axios from 'axios';
 import {retrieve} from '../utils/asyncStore';
 import {api} from '../config/api';
 
-const FriendSuggestionScreen = () => {
+const FriendSuggestionScreen = ({navigation}) => {
   const [userSuggestions, setUserSuggestions] = useState([]);
 
   const fetchAllUser = async () => {
@@ -29,8 +29,11 @@ const FriendSuggestionScreen = () => {
   };
 
   useEffect(() => {
-    fetchAllUser();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchAllUser();
+    });
+    return unsubscribe;
+  }, [navigation]);
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{padding: 20}}>
@@ -43,7 +46,7 @@ const FriendSuggestionScreen = () => {
             <FlatList
               data={userSuggestions}
               keyExtractor={item => item._id}
-              renderItem={({item}) => <FriendLists user={item} />}
+              renderItem={({item}) => <FriendLists item={item} />}
             />
           )}
         </View>
