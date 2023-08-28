@@ -24,8 +24,7 @@ const FriendLists = ({item}) => {
       },
     })
       .then(res => {
-        const updatedResult = res.data.followers.includes(user._id);
-        setIsFollowing(updatedResult);
+        setIsFollowing(!following);
       })
       .catch(error => {
         console.log(error);

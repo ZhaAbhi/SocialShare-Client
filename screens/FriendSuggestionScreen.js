@@ -20,7 +20,6 @@ const FriendSuggestionScreen = ({navigation}) => {
       },
     })
       .then(res => {
-        console.log(res.data);
         setUserSuggestions(res.data);
       })
       .catch(error => {
