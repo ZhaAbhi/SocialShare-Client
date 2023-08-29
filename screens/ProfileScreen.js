@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, View, Text, TouchableOpacity} from 'react-native';
+import {Image, View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import loadingImage from '../assets/images/loadingImage.jpeg';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import MessageIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,7 +8,8 @@ import ProfileTopTabNavigation from '../navigation/ProfileTopTabNavigation';
 import LocationIcon from 'react-native-vector-icons/Entypo';
 import CalenderIcon from 'react-native-vector-icons/AntDesign';
 
-const ProfileScreen = ({navigation}) => {
+const ProfileScreen = ({navigation, route}) => {
+  const {userId} = route.params;
   return (
     <View style={{flex: 1, backgroundColor: colors.white}}>
       <View>
@@ -141,7 +142,7 @@ const ProfileScreen = ({navigation}) => {
           }}></View>
         {/* Main body */}
       </View>
-      <ProfileTopTabNavigation />
+      <ProfileTopTabNavigation userId={userId} />
     </View>
   );
 };

@@ -76,7 +76,13 @@ const PostCard = ({item, onPress}) => {
         style={styles.container}
         onPress={onPress}>
         <View style={styles.upper}>
-          <Image source={loadingImage} style={styles.avatar} />
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('ProfileScreen', {userId: postedBy._id})
+            }>
+            <Image source={loadingImage} style={styles.avatar} />
+          </TouchableOpacity>
+
           <View style={styles.intro}>
             <View style={styles.postedBy}>
               <Text style={styles.name}>{emailFirstName}</Text>

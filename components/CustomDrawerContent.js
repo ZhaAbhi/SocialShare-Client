@@ -36,7 +36,9 @@ const CustomDrawerContent = () => {
         <SafeAreaView style={{flex: 1}}>
           <View style={{paddingLeft: 10, marginTop: 5, paddingRight: 10}}>
             <Pressable
-              onPress={() => navigation.navigate('ProfileScreen')}
+              onPress={() =>
+                navigation.navigate('ProfileScreen', {userId: user._id})
+              }
               style={{justifyContent: 'center'}}>
               <Image
                 source={loadingImage}
