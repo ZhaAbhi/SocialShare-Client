@@ -17,15 +17,17 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {retrieve} from '../utils/asyncStore';
 import UserContext from '../context/UserContext';
+import AuthContext from '../context/AuthContext';
 
 const CustomDrawerContent = () => {
   const navigation = useNavigation();
   const {user} = useContext(UserContext);
+  const {setLoggedIn} = useContext(AuthContext);
 
   const firstNameFromEmail = user && user.email.match(/^([^@]+)/)[1];
   const handleLogout = async () => {
     await AsyncStorage.removeItem('AccessToken').then(result => {
-      console.log(result);
+      setLoggedIn(false);
     });
   };
   return (
