@@ -8,6 +8,7 @@ import loadingImage from '../assets/images/loadingImage.jpeg';
 import {colors} from '../utils/colors';
 import LocationIcon from 'react-native-vector-icons/Ionicons';
 import CalendarIcon from 'react-native-vector-icons/Ionicons';
+import BackIcon from 'react-native-vector-icons/Ionicons';
 
 const ProfileScreen = ({route, navigation}) => {
   const {userId} = route.params;
@@ -40,6 +41,11 @@ const ProfileScreen = ({route, navigation}) => {
             source={loadingImage}
             style={{height: 100, resizeMode: 'cover'}}
           />
+          <TouchableOpacity
+            style={{position: 'absolute', top: 25, padding: 10}}
+            onPress={() => navigation.goBack()}>
+            <BackIcon name="arrow-back" color={colors.white} size={22} />
+          </TouchableOpacity>
           <View style={{padding: 10, flexDirection: 'row'}}>
             <View style={{top: -40}}>
               <Image
@@ -158,7 +164,7 @@ const ProfileScreen = ({route, navigation}) => {
         </View>
       )}
 
-      <View style={{marginTop:-35}}>
+      <View style={{marginTop: -35}}>
         <View style={{borderWidth: 1, borderColor: colors.darkgray}}></View>
         {userPosts && (
           <FlatList
