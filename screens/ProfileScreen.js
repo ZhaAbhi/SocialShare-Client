@@ -9,10 +9,13 @@ import {colors} from '../utils/colors';
 import LocationIcon from 'react-native-vector-icons/Ionicons';
 import CalendarIcon from 'react-native-vector-icons/Ionicons';
 import BackIcon from 'react-native-vector-icons/Ionicons';
+import moment from 'moment';
 
 const ProfileScreen = ({route, navigation}) => {
   const {userId} = route.params;
   const [userPosts, setUserPosts] = useState();
+  const [userInfo, setUserInfo] = useState();
+  const firstNameFromEmail = userInfo && userInfo.email.match(/^([^@]+)/)[1];
   const fetchUserPost = async () => {
     const token = await retrieve();
     await axios({
@@ -23,6 +26,7 @@ const ProfileScreen = ({route, navigation}) => {
       },
     })
       .then(res => {
+        setUserInfo(res.data);
         setUserPosts(res.data.posts);
       })
       .catch(error => {
@@ -35,7 +39,7 @@ const ProfileScreen = ({route, navigation}) => {
   }, []);
   return (
     <View style={{flex: 1}}>
-      {userPosts && (
+      {userInfo && (
         <View>
           <Image
             source={loadingImage}
@@ -66,14 +70,19 @@ const ProfileScreen = ({route, navigation}) => {
                     fontSize: 16,
                     color: colors.black,
                   }}>
-                  Abhishek
+                  {firstNameFromEmail}
                 </Text>
-                <Text style={{color: colors.darkgray}}>@Abhishek</Text>
+                <Text style={{color: colors.darkgray}}>
+                  @{userInfo.username}
+                </Text>
                 <View>
-                  <Text style={{marginTop: 10}}>
-                    This is my bio and only display if there is content
-                    otherwise dont display
-                  </Text>
+                  {userInfo.bio && (
+                    <Text style={{marginTop: 10}}>
+                      This is my bio and only display if there is content
+                      otherwise dont display
+                    </Text>
+                  )}
+
                   <View style={{flexDirection: 'row', marginTop: 10}}>
                     <View
                       style={{
@@ -103,7 +112,7 @@ const ProfileScreen = ({route, navigation}) => {
                         color={colors.darkgray}
                       />
                       <Text style={{marginLeft: 5, color: colors.darkgray}}>
-                        Joined on August 2023
+                        Joined on {moment(userInfo.createdAt).fromNow()}
                       </Text>
                     </View>
                   </View>
@@ -121,7 +130,7 @@ const ProfileScreen = ({route, navigation}) => {
                           fontWeight: 'bold',
                           color: colors.black,
                         }}>
-                        11
+                        {userInfo.followings.length}
                       </Text>
                       <Text>Followings</Text>
                     </View>
@@ -137,9 +146,9 @@ const ProfileScreen = ({route, navigation}) => {
                           fontWeight: 'bold',
                           color: colors.black,
                         }}>
-                        11
+                        {userInfo.followers.length}
                       </Text>
-                      <Text>Followings</Text>
+                      <Text>Followers</Text>
                     </View>
                   </View>
                 </View>
