@@ -28,13 +28,9 @@ const MainNavigation = () => {
           component={PostContentScreen}
           options={{...TransitionPresets.BottomSheetAndroid}}
         />
-        <Stack.Screen
-          name="ProfileScreen"
-          component={ProfileScreen}
-          options={{
-            ...TransitionPresets.SlideFromRightIOS,
-          }}
-        />
+      </Stack.Group>
+      <Stack.Group>
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
