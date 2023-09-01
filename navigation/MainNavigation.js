@@ -3,6 +3,7 @@ import PostContentScreen from '../screens/PostContentScreen';
 import BottomTabNavigation from './BottomTabNavigation';
 import PostDetailScreen from '../screens/PostDetailScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import MessageBoxScreen from '../screens/MessageBoxScreen';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,9 @@ const MainNavigation = () => {
       </Stack.Group>
       <Stack.Group>
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+      </Stack.Group>
+      <Stack.Group>
+        <Stack.Screen name="MessageBox" component={MessageBoxScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
