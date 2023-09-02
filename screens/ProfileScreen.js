@@ -5,6 +5,7 @@ import axios from 'axios';
 import {api} from '../config/api';
 import PostCard from '../components/PostCard';
 import loadingImage from '../assets/images/loadingImage.jpeg';
+import coverImage from '../assets/images/cover.jpeg';
 import {colors} from '../utils/colors';
 import LocationIcon from 'react-native-vector-icons/Ionicons';
 import CalendarIcon from 'react-native-vector-icons/Ionicons';
@@ -42,7 +43,7 @@ const ProfileScreen = ({route, navigation}) => {
       {userInfo && (
         <View>
           <Image
-            source={loadingImage}
+            source={coverImage}
             style={{height: 100, resizeMode: 'cover'}}
           />
           <TouchableOpacity
