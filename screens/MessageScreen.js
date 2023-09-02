@@ -51,6 +51,17 @@ const MessageScreen = ({navigation}) => {
         />
       </View>
       <View style={{borderWidth: 0.5, borderColor: colors.lightgray}}></View>
+      <View style={{padding: 10}}>
+        <Text
+          style={{
+            fontSize: 18,
+            color: colors.black,
+            fontWeight: 'bold',
+            fontFamily: 'Poppins-Medium',
+          }}>
+          Recent messages
+        </Text>
+      </View>
       <View style={{flex: 1}}>
         {messageUser && (
           <FlatList

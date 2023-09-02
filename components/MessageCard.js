@@ -27,6 +27,7 @@ const MessageCard = ({item, onPress}) => {
             <Text style={{marginLeft: 5, color: colors.darkgray}}>
               @{item.username}
             </Text>
+            <Text style={{marginLeft:"auto", fontSize:12, color:colors.darkgray}}>Aug 23</Text>
           </View>
           <Text numberOfLines={1} style={{color: colors.black}}>
             This is my message and it can be very very long for example
