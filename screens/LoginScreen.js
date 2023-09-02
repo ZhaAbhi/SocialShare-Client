@@ -46,7 +46,7 @@ const LoginScreen = ({navigation}) => {
       style={{flex: 1}}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <View style={styles.main}>
-        <AuthHeader greet="Welcome Back" subGreet="Glat to see you again!" />
+        <AuthHeader greet="Welcome Back" subGreet="Glad to see you again!" />
         <Text style={styles.loginText}>Log In</Text>
         <View style={styles.input}>
           <AppTextInput
@@ -57,6 +57,7 @@ const LoginScreen = ({navigation}) => {
           <AppTextInput
             placeholder="Password"
             value={password}
+            secureTextEntry={true}
             onChangeText={text => setPassword(text)}
           />
         </View>

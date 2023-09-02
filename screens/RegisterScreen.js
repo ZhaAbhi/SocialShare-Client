@@ -102,11 +102,13 @@ const RegisterScreen = ({navigation}) => {
             placeholder="Password"
             value={password}
             onChangeText={text => setPassword(text)}
+            secureTextEntry={true}
           />
           <AppTextInput
             placeholder="Confirm Password"
             value={confirmPassword}
             onChangeText={text => setConfirmPassword(text)}
+            secureTextEntry={true}
           />
         </View>
         <View style={styles.footer}>
