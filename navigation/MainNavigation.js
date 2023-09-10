@@ -4,6 +4,7 @@ import BottomTabNavigation from './BottomTabNavigation';
 import PostDetailScreen from '../screens/PostDetailScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import MessageBoxScreen from '../screens/MessageBoxScreen';
+import SearchUserScreen from '../screens/SearchUserScreen';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,9 @@ const MainNavigation = () => {
       </Stack.Group>
       <Stack.Group>
         <Stack.Screen name="MessageBox" component={MessageBoxScreen} />
+      </Stack.Group>
+      <Stack.Group>
+        <Stack.Screen name="SearchUserScreen" component={SearchUserScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  Text,
-  View,
-  TextInput,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
+import {SafeAreaView, Text, View, TextInput, FlatList} from 'react-native';
 import {colors} from '../utils/colors';
 import {retrieve} from '../utils/asyncStore';
 import axios from 'axios';
@@ -14,19 +7,19 @@ import {api} from '../config/api';
 import MessageCard from '../components/MessageCard';
 
 const MessageScreen = ({navigation}) => {
-  const [messageUser, setMessageUser] = useState();
+  const [chats, setChats] = useState([]);
 
-  const fetchUser = async () => {
+  const fetchChats = async () => {
     const token = await retrieve();
     await axios({
       method: 'get',
-      url: `${api.users}`,
+      url: `${api.fetchChats}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then(res => {
-        setMessageUser(res.data);
+        setChats(res.data);
       })
       .catch(error => {
         console.log(error);
@@ -34,16 +27,21 @@ const MessageScreen = ({navigation}) => {
   };
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchChats();
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{padding: 10}}>
         <TextInput
+          onPressIn={() => navigation.navigate('SearchUserScreen')}
           placeholder="Search Direct Messages"
           placeholderTextColor={colors.darkgray}
           style={{
-            height: 30,
+            padding: 10,
             borderRadius: 25,
             paddingLeft: 10,
             backgroundColor: colors.elightgray,
@@ -63,14 +61,16 @@ const MessageScreen = ({navigation}) => {
         </Text>
       </View>
       <View style={{flex: 1}}>
-        {messageUser && (
+        {chats && (
           <FlatList
-            data={messageUser}
+            data={chats}
             keyExtractor={item => item._id}
             renderItem={({item}) => (
               <MessageCard
                 item={item}
-                onPress={() => navigation.navigate('MessageBox')}
+                onPress={() =>
+                  navigation.navigate('MessageBox', {allChat: item})
+                }
               />
             )}
           />
