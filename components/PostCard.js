@@ -99,7 +99,6 @@ const PostCard = ({item, onPress}) => {
                 />
               </View>
             )}
-
             {/* footer icon */}
             <View style={styles.iconContainer}>
               <AppReactIcon name="comment" count={item.comments.length} />
