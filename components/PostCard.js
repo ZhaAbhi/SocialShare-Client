@@ -103,7 +103,7 @@ const PostCard = ({item, onPress}) => {
             {/* footer icon */}
             <View style={styles.iconContainer}>
               <AppReactIcon name="comment" count={item.comments.length} />
-              <AppReactIcon name="retweet" count={25} />
+              <AppReactIcon name="retweet" />
               <LikeIcon
                 onPress={handleLike}
                 name={like ? 'heart' : 'heart-outline'}

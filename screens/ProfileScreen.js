@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import {retrieve} from '../utils/asyncStore';
 import axios from 'axios';
@@ -11,8 +11,10 @@ import LocationIcon from 'react-native-vector-icons/Ionicons';
 import CalendarIcon from 'react-native-vector-icons/Ionicons';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+import UserContext from '../context/UserContext';
 
 const ProfileScreen = ({route, navigation}) => {
+  const {user} = useContext(UserContext);
   const {userId} = route.params;
   const [userPosts, setUserPosts] = useState();
   const [userInfo, setUserInfo] = useState();
@@ -156,19 +158,21 @@ const ProfileScreen = ({route, navigation}) => {
               </View>
             </View>
             <View style={{marginLeft: 'auto'}}>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: colors.black,
-                  width: 100,
-                  height: 20,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 10,
-                }}>
-                <Text style={{color: colors.eelightgray, fontWeight: 'bold'}}>
-                  Edit Profile
-                </Text>
-              </TouchableOpacity>
+              {userId === user._id && (
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: colors.black,
+                    width: 100,
+                    height: 20,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 10,
+                  }}>
+                  <Text style={{color: colors.eelightgray, fontWeight: 'bold'}}>
+                    Edit Profile
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         </View>

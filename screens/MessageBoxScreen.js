@@ -25,7 +25,7 @@ const MessageBoxScreen = ({route, navigation}) => {
   const {allChat} = route.params;
   const chatId = allChat._id;
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState();
+  const [newMessage, setNewMessage] = useState('');
   const [socketConnected, setSocketConnected] = useState(false);
 
   useEffect(() => {

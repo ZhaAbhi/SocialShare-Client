@@ -1,10 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import UserContext from '../context/UserContext';
 import {retrieve} from '../utils/asyncStore';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import {api} from '../config/api';
+import loadingImage from '../assets/images/loadingImage.jpeg';
+import { colors } from '../utils/colors';
 
 const SearchedUserContainer = ({item}) => {
   const {navigate} = useNavigation();
@@ -22,7 +24,6 @@ const SearchedUserContainer = ({item}) => {
       },
     })
       .then(res => {
-        console.log(res.data);
         navigate('MessageBox', {allChat: res.data});
       })
       .catch(error => {
@@ -31,9 +32,18 @@ const SearchedUserContainer = ({item}) => {
   };
 
   return (
-    <View>
+    <View style={{borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor:colors.darkgray, padding:10}}>
       <TouchableOpacity onPress={accessChat}>
-        <Text>{item.email}</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Image
+            source={loadingImage}
+            style={{height: 50, width: 50, borderRadius: 25}}
+          />
+          <View style={{marginLeft: 5}}>
+            <Text style={{color:colors.black}}>{item.email.match(/^([^@]+)/)[1]}</Text>
+            <Text style={{color:colors.darkgray}}>@{item.username}</Text>
+          </View>
+        </View>
       </TouchableOpacity>
     </View>
   );

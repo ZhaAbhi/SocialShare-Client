@@ -52,11 +52,11 @@ const MessageCard = ({item, onPress}) => {
                   fontSize: 12,
                   color: colors.darkgray,
                 }}>
-                {moment(item.latestMessage.createdAt).fromNow()}
+                {moment(item.latestMessage?.createdAt).fromNow()}
               </Text>
             </View>
             <Text numberOfLines={1} style={{color: colors.black}}>
-              {item.latestMessage.content}
+              {item.latestMessage?.content || 'No message'}
             </Text>
           </View>
         </View>
